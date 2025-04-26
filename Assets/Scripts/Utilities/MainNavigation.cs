@@ -10,12 +10,27 @@ public class MainNavigation : MonoBehaviour
 
     private bool state;
 
+    private bool isPaused;
+
+    private bool gameScene;
+
     void Start()
     {
         // Set initial state value
         state = false;
-
+        // Prevent pause menu from opening while in main menu
+        isPaused = true;
+        gameScene = false;
         InitializeObjStates();
+    }
+
+    void Update()
+    {
+        // Handle keyboard input
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePauseMenu();
+        }
     }
 
     private void InitializeObjStates()
@@ -35,8 +50,51 @@ public class MainNavigation : MonoBehaviour
     // Load game scene, set start menu inactive
     public void StartGame()
     {
+        // Set main menu to inactive
         canvasPanels[0].SetActive(state);
+        // Load new scene
         SceneManager.LoadScene("Level_One");
+        // Enable pause menu to be opened
+        isPaused = false;
+        // Starting game scene
+        gameScene = true;
+    }
+
+    // Return to main menu from pause screen
+    public void ReturnToMainMenu()
+    {
+        // Set main menu to inactive
+        canvasPanels[0].SetActive(!state);
+        // Load new scene
+        SceneManager.LoadScene("MainMenu");
+        // Enable pause menu to be opened
+        isPaused = true;
+        // Returning to main menu scene
+        gameScene = false;
+    }
+
+    public void TogglePauseMenu()
+    {
+        if (!isPaused)
+        {
+            // Stop in-game clock to stop animations and updates
+            Time.timeScale = 0f;
+            isPaused = true;
+            ToggleMenu(2);
+        }
+        else if (isPaused && gameScene)
+        {
+            // Resume in game clock
+            Time.timeScale = 1f;
+            isPaused = false;
+            ToggleMenu(2);
+        }
+    }
+
+    // Exit application
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     // MenuID 0 = Start
@@ -47,12 +105,6 @@ public class MainNavigation : MonoBehaviour
     {
         TogglePanelState(canvasPanels, menuID);
         ToggleObjectState(inactiveObjects);
-    }
-
-    // Exit application
-    public void QuitGame()
-    {
-        Application.Quit();
     }
 
     // Set objects visible / hidden
