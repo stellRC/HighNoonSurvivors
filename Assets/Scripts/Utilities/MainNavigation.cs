@@ -24,24 +24,29 @@ public class MainNavigation : MonoBehaviour
         canvasPanels[0].SetActive(!state);
         // Set Options Menu inactive
         canvasPanels[1].SetActive(state);
+        // Set Pause Menu inactive
+        canvasPanels[2].SetActive(state);
         // Set Player and Clock active
         inactiveObjects[0].SetActive(!state);
         // Set Player and clock inactive
         inactiveObjects[1].SetActive(!state);
     }
 
-    // Load game scene
+    // Load game scene, set start menu inactive
     public void StartGame()
     {
         canvasPanels[0].SetActive(state);
         SceneManager.LoadScene("Level_One");
     }
 
+    // MenuID 0 = Start
+    // menuID 1 = Options
+    // menuID 2 = Pause
     // Open and close options menu
-    public void ToggleOptionsMenu()
+    public void ToggleMenu(int menuID)
     {
-        ToggleState(canvasPanels);
-        ToggleState(inactiveObjects);
+        TogglePanelState(canvasPanels, menuID);
+        ToggleObjectState(inactiveObjects);
     }
 
     // Exit application
@@ -51,19 +56,33 @@ public class MainNavigation : MonoBehaviour
     }
 
     // Set objects visible / hidden
-    private void ToggleState(List<GameObject> list)
+    private void ToggleObjectState(List<GameObject> list)
     {
         foreach (var obj in list)
         {
-            switch (obj.activeSelf)
+            if (obj.activeSelf)
             {
-                case false:
-                    obj.SetActive(!state);
-                    break;
-                default:
-                    obj.SetActive(state);
-                    break;
+                obj.SetActive(!state);
+            }
+            else
+            {
+                obj.SetActive(state);
             }
         }
+    }
+
+    private void TogglePanelState(List<GameObject> list, int menuID)
+    {
+        // Set all panels to inactive
+        foreach (var obj in list)
+        {
+            if (obj.activeSelf)
+            {
+                obj.SetActive(state);
+            }
+        }
+
+        // Set specific panel to active
+        list[menuID].SetActive(state);
     }
 }

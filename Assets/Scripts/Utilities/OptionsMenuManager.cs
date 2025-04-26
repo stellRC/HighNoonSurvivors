@@ -36,10 +36,10 @@ public class OptionsMenuManager : MonoBehaviour
 
     void Start()
     {
-        filterResolutions();
+        FilterResolutions();
     }
 
-    private void filterResolutions()
+    private void FilterResolutions()
     {
         resolutions = Screen.resolutions;
         filteredResolutions = new List<Resolution>();
