@@ -67,6 +67,7 @@
     "respawn",
     "Rigidbody",
     "Scriptable",
-    "spawnable"
+    "spawnable",
+    "tweening"
   ]
 }

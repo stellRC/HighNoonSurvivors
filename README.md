@@ -41,7 +41,7 @@ git merge main-temp --allow-unrelated-histories
 ## Camera & Lighting
 
 ### Cinemachine Virtual Camera
-The camera follows a point slightly in front of the player so that the player is never center screen. I also use a confiner 2d to define the interior boundary to prevent the camera from moving beyond the designated game space. 
+The camera follows a point slightly in front of the player so that the player is never center screen. I also use a confiner 2d to define the interior boundary to prevent the camera from moving beyond the designated game space and showing the map 'void'.
 
 [Reference: Cinemachine](https://unity.com/features/cinemachine)
 
@@ -53,7 +53,7 @@ I use three layers of fog. The first two layers are variations on a material I c
 ### Dust
 There are two layers of dust, each with slightly different settings and on different z-axises to bring about an illusion of depth.
 
-### Death Animation Particles
+### Death Particles
 TODO: Use object pool to reuse particles
 
 ## User Interface
@@ -81,6 +81,13 @@ I was inspired by the [title sequence](https://www.youtube.com/watch?v=rnSU_qq7o
 ### Sprites
 
 I used sprite and animations created by [Dead Revolver](https://deadrevolver.thousand-pixel.com/) for both the player character and the enemies.
+
+## Animation
+
+### LeanTween
+A useful tool for tweening aka filling in motion between two points. I use this for animating UI.
+
+[Source: LeanTween](https://assetstore.unity.com/packages/tools/animation/leantween-3595)
 
 ## DATA
 

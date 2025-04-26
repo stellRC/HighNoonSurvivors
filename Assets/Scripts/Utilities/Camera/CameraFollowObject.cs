@@ -24,7 +24,7 @@ public class CameraFollowObject : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // make cameraFollowObject follow player's position
+        // cameraFollowObject follows player's position
         transform.position = playerTransform.position;
     }
 
