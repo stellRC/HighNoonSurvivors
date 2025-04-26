@@ -23,7 +23,7 @@ git remote -v
 > origin  https://github.com/your/repo.git (push)
 
 git checkout main
-# Move to main branch
+# Switch to main branch
 
 git branch -m main-temp
 # Rename branch temporarily
