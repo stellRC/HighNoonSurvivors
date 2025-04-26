@@ -23,4 +23,6 @@ public class EnemyData : ScriptableObject
 
     [Header("Enemy Combat")]
     public bool isBoss;
+
+    // Test
 }
