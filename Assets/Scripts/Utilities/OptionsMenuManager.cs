@@ -107,6 +107,9 @@ public class OptionsMenuManager : MonoBehaviour
             case "800x600":
                 options.Add(resolutionOption);
                 break;
+            case "3840x1080":
+                options.Add(resolutionOption);
+                break;
         }
     }
 
