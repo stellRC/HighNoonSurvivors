@@ -22,13 +22,6 @@ public class MainNavigation : MonoBehaviour
     [SerializeField]
     private GameObject pauseMenu;
 
-    [Header("Objects")]
-    [SerializeField]
-    private GameObject player;
-
-    [SerializeField]
-    private GameObject clock;
-
     private bool state;
 
     public static bool isPaused;
@@ -48,9 +41,11 @@ public class MainNavigation : MonoBehaviour
     void Update()
     {
         // Handle keyboard input
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && gameScene)
         {
             TogglePauseMenu();
+            pauseMenu.SetActive(true);
+            // Set Player and Clock active
         }
     }
 
@@ -58,7 +53,7 @@ public class MainNavigation : MonoBehaviour
     {
         MenuCanvas.SetActive(true);
         // hide kill count and settings button
-        gameUICanvas.SetActive(true);
+        gameUICanvas.SetActive(false);
         // Set Start Menu active
         StartMenu.SetActive(true);
         // Set Options Menu inactive
@@ -66,9 +61,6 @@ public class MainNavigation : MonoBehaviour
         // Set Pause Menu inactive
         pauseMenu.SetActive(false);
         // Set Player and Clock active
-        player.SetActive(true);
-        // Set Player and clock inactive
-        clock.SetActive(false);
     }
 
     // Load game scene, set start menu inactive
@@ -84,8 +76,7 @@ public class MainNavigation : MonoBehaviour
         gameUICanvas.SetActive(true);
         // Load new scene
         SceneManager.LoadScene("Level_One");
-        // Set Player and clock inactive
-        clock.SetActive(true);
+
         // Enable pause menu to be opened
         isPaused = false;
         // Starting game scene
@@ -118,7 +109,7 @@ public class MainNavigation : MonoBehaviour
             Time.timeScale = 0f;
             isPaused = true;
 
-            clock.SetActive(false);
+            // clock.SetActive(false);
             MenuCanvas.SetActive(true);
             gameUICanvas.SetActive(false);
         }
@@ -128,7 +119,7 @@ public class MainNavigation : MonoBehaviour
             Time.timeScale = 1f;
             isPaused = false;
 
-            clock.SetActive(true);
+            // clock.SetActive(true);
             MenuCanvas.SetActive(false);
             gameUICanvas.SetActive(true);
         }
