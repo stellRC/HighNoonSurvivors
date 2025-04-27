@@ -1,12 +1,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.TerrainTools;
 
 public class MainNavigation : MonoBehaviour
 {
-    public List<GameObject> canvasPanels;
+    [Header("Canvas Groups")]
+    [SerializeField]
+    private GameObject MenuCanvas;
 
-    public List<GameObject> inactiveObjects;
+    [SerializeField]
+    private GameObject gameUICanvas;
+
+    [Header("Menus")]
+    [SerializeField]
+    private GameObject StartMenu;
+
+    [SerializeField]
+    private GameObject optionsMenu;
+
+    [SerializeField]
+    private GameObject pauseMenu;
+
+    [Header("Objects")]
+    [SerializeField]
+    private GameObject player;
+
+    [SerializeField]
+    private GameObject clock;
 
     private bool state;
 
@@ -14,7 +35,7 @@ public class MainNavigation : MonoBehaviour
 
     private bool gameScene;
 
-    void Start()
+    void Awake()
     {
         // Set initial state value
         state = false;
@@ -35,25 +56,36 @@ public class MainNavigation : MonoBehaviour
 
     private void InitializeObjStates()
     {
+        MenuCanvas.SetActive(true);
+        // hide kill count and settings button
+        gameUICanvas.SetActive(true);
         // Set Start Menu active
-        canvasPanels[0].SetActive(!state);
+        StartMenu.SetActive(true);
         // Set Options Menu inactive
-        canvasPanels[1].SetActive(state);
+        optionsMenu.SetActive(false);
         // Set Pause Menu inactive
-        canvasPanels[2].SetActive(state);
+        pauseMenu.SetActive(false);
         // Set Player and Clock active
-        inactiveObjects[0].SetActive(!state);
+        player.SetActive(true);
         // Set Player and clock inactive
-        inactiveObjects[1].SetActive(!state);
+        clock.SetActive(false);
     }
 
     // Load game scene, set start menu inactive
     public void StartGame()
     {
         // Set main menu to inactive
-        canvasPanels[0].SetActive(state);
+        StartMenu.SetActive(false);
+        // hide menus
+        MenuCanvas.SetActive(false);
+        // Activate pause menu in preparation for game pause
+        pauseMenu.SetActive(true);
+        // Show kill count and settings button
+        gameUICanvas.SetActive(true);
         // Load new scene
         SceneManager.LoadScene("Level_One");
+        // Set Player and clock inactive
+        clock.SetActive(true);
         // Enable pause menu to be opened
         isPaused = false;
         // Starting game scene
@@ -63,82 +95,63 @@ public class MainNavigation : MonoBehaviour
     // Return to main menu from pause screen
     public void ReturnToMainMenu()
     {
-        // Set main menu to inactive
-        canvasPanels[0].SetActive(!state);
         // Load new scene
         SceneManager.LoadScene("MainMenu");
+        // Set main menu to inactive
+        StartMenu.SetActive(true);
+        // Show kill count and settings button
+        gameUICanvas.SetActive(false);
         // Enable pause menu to be opened
         isPaused = true;
         // Returning to main menu scene
         gameScene = false;
+        // Start internal game clock (enable fog animations)
         Time.timeScale = 1f;
     }
 
     public void TogglePauseMenu()
     {
+        Debug.Log("cat");
         if (!isPaused)
         {
             // Stop in-game clock to stop animations and updates
             Time.timeScale = 0f;
             isPaused = true;
-            ToggleMenu(2);
+
+            clock.SetActive(false);
+            MenuCanvas.SetActive(true);
+            gameUICanvas.SetActive(false);
         }
         else if (isPaused && gameScene)
         {
             // Resume in game clock
             Time.timeScale = 1f;
             isPaused = false;
-            ToggleMenu(2);
+
+            clock.SetActive(true);
+            MenuCanvas.SetActive(false);
+            gameUICanvas.SetActive(true);
         }
+    }
+
+    public void ToggleOptionsMenu()
+    {
+        if (gameScene)
+        {
+            pauseMenu.SetActive(state);
+        }
+        else
+        {
+            StartMenu.SetActive(state);
+        }
+
+        state = !state;
+        optionsMenu.SetActive(state);
     }
 
     // Exit application
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    // MenuID 0 = Start
-    // menuID 1 = Options
-    // menuID 2 = Pause
-    // Open and close options menu
-    public void ToggleMenu(int menuID)
-    {
-        TogglePanelState(canvasPanels, menuID);
-        ToggleObjectState(inactiveObjects);
-    }
-
-    // Set objects visible / hidden
-    private void ToggleObjectState(List<GameObject> list)
-    {
-        foreach (var obj in list)
-        {
-            if (obj != null)
-            {
-                if (obj.activeSelf)
-                {
-                    obj.SetActive(!state);
-                }
-                else
-                {
-                    obj.SetActive(state);
-                }
-            }
-        }
-    }
-
-    private void TogglePanelState(List<GameObject> list, int menuID)
-    {
-        // Set all panels to inactive
-        foreach (var obj in list)
-        {
-            if (obj.activeSelf)
-            {
-                obj.SetActive(state);
-            }
-        }
-
-        // Set specific panel to active
-        list[menuID].SetActive(!state);
     }
 }
