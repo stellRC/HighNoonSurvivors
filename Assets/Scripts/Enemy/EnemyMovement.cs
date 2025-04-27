@@ -31,34 +31,37 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // distance between enemy and player
-        distance = Vector2.Distance(transform.position, playerTransform.position);
-
-        // Direction player is moving in
-        Vector2 direction = playerTransform.position - transform.position;
-        direction.Normalize();
-
-        // Rotation angle
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        // Flip sprite in direction of player movement
-        if (enemySprite != null)
+        if (!MainNavigation.isPaused)
         {
-            TurnCheck();
-        }
+            // distance between enemy and player
+            distance = Vector2.Distance(transform.position, playerTransform.position);
 
-        // Walk towards player
-        if (distance < enemyData.distanceBetween && !isDead)
-        {
-            enemyAnimation.SetAnimation(enemyData.movementSpeedID);
+            // Direction player is moving in
+            Vector2 direction = playerTransform.position - transform.position;
+            direction.Normalize();
 
-            EnemyMovementPatterns(enemyData.movementPatternID, angle, enemyData.moveSpeed);
-        }
+            // Rotation angle
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // Idle animation
-        if (distance > enemyData.distanceBetween && !isDead)
-        {
-            enemyAnimation.SetAnimation(1);
+            // Flip sprite in direction of player movement
+            if (enemySprite != null)
+            {
+                TurnCheck();
+            }
+
+            // Walk towards player
+            if (distance < enemyData.distanceBetween && !isDead)
+            {
+                enemyAnimation.SetAnimation(enemyData.movementSpeedID);
+
+                EnemyMovementPatterns(enemyData.movementPatternID, angle, enemyData.moveSpeed);
+            }
+
+            // Idle animation
+            if (distance > enemyData.distanceBetween && !isDead)
+            {
+                enemyAnimation.SetAnimation(1);
+            }
         }
     }
 

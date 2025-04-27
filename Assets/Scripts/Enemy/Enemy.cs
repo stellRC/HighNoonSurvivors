@@ -28,8 +28,6 @@ public class Enemy : MonoBehaviour, IDoDamage
         enemyAnimation = GetComponent<GunAnimation>();
     }
 
-    void Start() { }
-
     void OnEnable()
     {
         isDead = false;

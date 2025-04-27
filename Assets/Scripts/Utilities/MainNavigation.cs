@@ -10,7 +10,7 @@ public class MainNavigation : MonoBehaviour
 
     private bool state;
 
-    private bool isPaused;
+    public static bool isPaused;
 
     private bool gameScene;
 
@@ -71,6 +71,7 @@ public class MainNavigation : MonoBehaviour
         isPaused = true;
         // Returning to main menu scene
         gameScene = false;
+        Time.timeScale = 1f;
     }
 
     public void TogglePauseMenu()
@@ -112,13 +113,16 @@ public class MainNavigation : MonoBehaviour
     {
         foreach (var obj in list)
         {
-            if (obj.activeSelf)
+            if (obj != null)
             {
-                obj.SetActive(!state);
-            }
-            else
-            {
-                obj.SetActive(state);
+                if (obj.activeSelf)
+                {
+                    obj.SetActive(!state);
+                }
+                else
+                {
+                    obj.SetActive(state);
+                }
             }
         }
     }
@@ -135,6 +139,6 @@ public class MainNavigation : MonoBehaviour
         }
 
         // Set specific panel to active
-        list[menuID].SetActive(state);
+        list[menuID].SetActive(!state);
     }
 }
