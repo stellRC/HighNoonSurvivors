@@ -22,29 +22,29 @@ public class MainNavigation : MonoBehaviour
     [SerializeField]
     private GameObject pauseMenu;
 
-    private bool state;
-
     public static bool isPaused;
 
     private bool gameScene;
 
+    private bool state;
+
     void Awake()
     {
-        // Set initial state value
-        state = false;
         // Prevent pause menu from opening while in main menu
         isPaused = true;
         gameScene = false;
         InitializeObjStates();
+        state = false;
     }
 
     void Update()
     {
-        // Handle keyboard input
+        // // Handle keyboard input
         if (Input.GetKeyDown(KeyCode.Escape) && gameScene)
         {
             TogglePauseMenu();
             pauseMenu.SetActive(true);
+            optionsMenu.SetActive(false);
             // Set Player and Clock active
         }
     }
@@ -90,6 +90,7 @@ public class MainNavigation : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
         // Set main menu to inactive
         StartMenu.SetActive(true);
+        pauseMenu.SetActive(false);
         // Show kill count and settings button
         gameUICanvas.SetActive(false);
         // Enable pause menu to be opened
@@ -111,6 +112,7 @@ public class MainNavigation : MonoBehaviour
 
             // clock.SetActive(false);
             MenuCanvas.SetActive(true);
+            pauseMenu.SetActive(true);
             gameUICanvas.SetActive(false);
         }
         else if (isPaused && gameScene)
@@ -136,8 +138,16 @@ public class MainNavigation : MonoBehaviour
             StartMenu.SetActive(state);
         }
 
+        if (optionsMenu.activeSelf == false)
+        {
+            optionsMenu.SetActive(true);
+        }
+        else
+        {
+            optionsMenu.SetActive(false);
+        }
+
         state = !state;
-        optionsMenu.SetActive(state);
     }
 
     // Exit application
