@@ -98,8 +98,6 @@ I create a single instance of the gameManager to ensure persistent data across g
 ## Object Pooling
 
 
-
-
 ## Todo
 
 - [ ] 3 enemy-types with basic AI
