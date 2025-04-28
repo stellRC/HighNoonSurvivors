@@ -97,3 +97,20 @@ I create a single instance of the gameManager to ensure persistent data across g
 
 ## Object Pooling
 
+
+
+
+## Todo
+
+- [ ] 3 enemy-types with basic AI
+- [ ] Final boss that show sup at noon
+- [ ] win/lose/continue state
+- [ ] 3 unique weapon types
+- [ ] 3 player movement options
+- [ ] in game clock
+- [ ] parry mechanic
+- [ ] animated shadows
+- [ ] morning mis
+- [ ] randomized map
+- [ ] upgrades
+- [ ] menu
