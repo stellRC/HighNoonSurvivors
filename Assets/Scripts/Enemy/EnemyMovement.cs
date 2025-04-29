@@ -53,7 +53,7 @@ public class EnemyMovement : MonoBehaviour
             }
 
             // Walk towards player
-            if (distance < enemyData.distanceBetween && !isDead)
+            if (distance < enemyData.distanceBetween && !isDead && enemyAnimation.animationFinished)
             {
                 // enemyAnimation.SetAnimation(enemyData.movementSpeedID);
                 enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[2]);
