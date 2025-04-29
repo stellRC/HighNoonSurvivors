@@ -9,11 +9,16 @@ public class MasterAnimator : MonoBehaviour
     AnimatorStateInfo animatorStateInfo;
 
     public List<string> stateAnimation;
-    public List<string> brawlAnimation;
 
-    // private List<string> swordAnimation;
-    // private List<string> projectileAnimation;
+    [Header("Combat Animations")]
+    public List<string> brawlAnimation;
+    public List<string> swordAnimation;
+    public List<string> projectileAnimation;
+
+    [Header("Movement Animations")]
     public List<string> moveAnimation;
+    public List<string> moveSwordAnimation;
+    public List<string> moveProjectileAnimation;
 
     public bool animationFinished;
 
@@ -40,7 +45,47 @@ public class MasterAnimator : MonoBehaviour
 
         brawlAnimation = new List<string>() { "PunchA", "PunchB", "PunchC", "KickA", "KickB" };
         moveAnimation = new List<string>() { "Idle", "Walk", "Run", "Sprint", "Dash" };
-        // projectileAnimation = new List<string>() {}
+        projectileAnimation = new List<string>()
+        {
+            "GunFire",
+            "GunFire2H",
+            "GunWalkFire",
+            "GunRunFire",
+            "GunSprintFire",
+            "GunCrouchFire"
+        };
+        moveProjectileAnimation = new List<string>()
+        {
+            "GunReload",
+            "GunAim",
+            "GunWalk",
+            "GunRun",
+            "GunSprint",
+            "GunCrouch"
+        };
+        moveSwordAnimation = new List<string>()
+        {
+            "SwordIdle",
+            "SwordWalk",
+            "SwordRun",
+            "SwordRunAltGrip",
+            "SwordSprint",
+            "SwordCrouch"
+        };
+        swordAnimation = new List<string>()
+        {
+            "SwordGuard",
+            "SwordGuardImpact",
+            "SwordAttack",
+            "SwordStandingSlash",
+            "SwordRunSlash",
+            "SwordSprintSlash",
+            "CrouchSlash",
+            "ComboAttackA",
+            "ComboAttackB",
+            "ComboAttackC",
+            "ComboAttackD"
+        };
     }
 
     void Update()

@@ -10,17 +10,12 @@ public class BrawlWeapon : WeaponBase
     [SerializeField]
     private Transform attackPoint;
 
-    private Vector2 spawnPosition;
     private MasterAnimator enemyAnimation;
 
     private Transform playerTransform;
 
     private float timeBetweenShots = 0;
     private float nextShotTime;
-
-    // private Vector3 offset;
-
-    // private int bulletCount;
 
     void Awake()
     {
