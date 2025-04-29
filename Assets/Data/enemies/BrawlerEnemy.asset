@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e34d49edf15db04e8b840039cfbb130, type: 3}
   m_Name: BrawlerEnemy
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 0}
+  enemyPrefab: {fileID: 534342668968302770, guid: 39ad37de6c7644045ac5827e6fa8e6eb, type: 3}
   projectilePrefab: {fileID: 0}
   EnemyName: 
-  maxHealth: 0
-  moveSpeed: 0
-  distanceBetween: 0
-  attackDistance: 0
-  minimumDistance: 0
-  movementPatternID: 0
-  movementSpeedID: 0
+  maxHealth: 1
+  moveSpeed: 2
+  distanceBetween: 3
+  attackDistance: 1
+  minimumDistance: 2
+  movementPatternID: 2
+  movementSpeedID: 2
   isBoss: 0

@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal.Internal;
 
 public class Enemy : MonoBehaviour, IDoDamage
 {
@@ -15,7 +11,10 @@ public class Enemy : MonoBehaviour, IDoDamage
     private EnemyManager enemyManager;
 
     private ParticleSystem deathParticleSystem;
-    private GunAnimation enemyAnimation;
+
+    // private GunAnimation enemyAnimation;
+    private MasterAnimator enemyAnimation;
+
     public float currentHealth;
 
     public bool isDead;
@@ -25,7 +24,8 @@ public class Enemy : MonoBehaviour, IDoDamage
     void Awake()
     {
         deathParticleSystem = GetComponent<ParticleSystem>();
-        enemyAnimation = GetComponent<GunAnimation>();
+        // enemyAnimation = GetComponent<GunAnimation>();
+        enemyAnimation = GetComponent<MasterAnimator>();
     }
 
     void OnEnable()
@@ -65,10 +65,11 @@ public class Enemy : MonoBehaviour, IDoDamage
 
     private void HurtAnimation()
     {
-        var hurtAnimation = 14;
+        // var hurtAnimation = 14;
 
-        // Hurt animation
-        enemyAnimation.SetAnimation(hurtAnimation);
+        // // Hurt animation
+        // enemyAnimation.SetAnimation(hurtAnimation);
+        enemyAnimation.ChangeAnimation(enemyAnimation.stateAnimation[4]);
     }
 
     private void Die()
@@ -79,9 +80,9 @@ public class Enemy : MonoBehaviour, IDoDamage
 
     private void DeathAnimation()
     {
-        var deadAnimation = 13;
-        enemyAnimation.SetAnimation(deadAnimation);
-        Debug.Log("dead enemy");
+        // var deadAnimation = 13;
+        // enemyAnimation.SetAnimation(deadAnimation);
+        enemyAnimation.ChangeAnimation(enemyAnimation.stateAnimation[0]);
     }
 
     private void DisableComponents()

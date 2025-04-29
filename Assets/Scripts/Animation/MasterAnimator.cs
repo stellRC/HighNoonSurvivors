@@ -1,30 +1,66 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MasterAnimator : MonoBehaviour
 {
+    [SerializeField]
     private Animator masterAnimator;
     private string currentAnimation;
+    AnimatorStateInfo animatorStateInfo;
 
-    Dictionary<string, string> animationDictionary =
-        new()
-        {
-            // { key1, value1 },
-            // { key2, value2 }
-        };
+    public List<string> stateAnimation;
+    public List<string> brawlAnimation;
 
-    // Start is called before the first frame update
-    void Start()
+    // private List<string> swordAnimation;
+    // private List<string> projectileAnimation;
+    public List<string> moveAnimation;
+
+    public bool animationFinished;
+
+    private float NTime;
+
+    void Awake() { }
+
+    void OnEnable()
     {
-        masterAnimator = GetComponent<Animator>();
+        // masterAnimator = GetComponentInChildren<Animator>();
+        InitAnimationLists();
     }
 
-    private void CheckAnimation() { }
-
-    private void ChangeAnimation(string animation, float crossFade = 0.2f)
+    private void InitAnimationLists()
     {
-        if (currentAnimation != animation)
+        stateAnimation = new List<string>()
+        {
+            "Die",
+            "Stunned",
+            "HitDamage",
+            "HitDamageUp",
+            "Knockback"
+        };
+
+        brawlAnimation = new List<string>() { "PunchA", "PunchB", "PunchC", "KickA", "KickB" };
+        moveAnimation = new List<string>() { "Idle", "Walk", "Run", "Sprint", "Dash" };
+        // projectileAnimation = new List<string>() {}
+    }
+
+    void Update()
+    {
+        animatorStateInfo = masterAnimator.GetCurrentAnimatorStateInfo(0);
+        NTime = animatorStateInfo.normalizedTime;
+
+        if (NTime >= 1.0f)
+        {
+            animationFinished = true;
+        }
+        else
+        {
+            animationFinished = false;
+        }
+    }
+
+    public void ChangeAnimation(string animation, float crossFade = 0.2f)
+    {
+        if (currentAnimation != animation && animationFinished)
         {
             currentAnimation = animation;
             masterAnimator.CrossFade(animation, crossFade);

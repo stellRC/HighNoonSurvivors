@@ -10,7 +10,8 @@ public class EnemyMovement : MonoBehaviour
 
     private Transform playerTransform;
 
-    private GunAnimation enemyAnimation;
+    // private GunAnimation enemyAnimation;
+    private MasterAnimator enemyAnimation;
     public bool IsFacingRight { get; set; }
 
     private float distance;
@@ -18,7 +19,8 @@ public class EnemyMovement : MonoBehaviour
 
     private void Awake()
     {
-        enemyAnimation = GetComponent<GunAnimation>();
+        // enemyAnimation = GetComponent<GunAnimation>();
+        enemyAnimation = GetComponent<MasterAnimator>();
         isDead = GetComponent<Enemy>().isDead;
         playerTransform = FindObjectOfType<PlayerMovement>().transform;
     }
@@ -26,7 +28,8 @@ public class EnemyMovement : MonoBehaviour
     private void OnEnable()
     {
         TurnCheck();
-        enemyAnimation.SetAnimation(2);
+        // enemyAnimation.SetAnimation(2);
+        enemyAnimation.ChangeAnimation("Walk");
     }
 
     private void FixedUpdate()
@@ -52,7 +55,8 @@ public class EnemyMovement : MonoBehaviour
             // Walk towards player
             if (distance < enemyData.distanceBetween && !isDead)
             {
-                enemyAnimation.SetAnimation(enemyData.movementSpeedID);
+                // enemyAnimation.SetAnimation(enemyData.movementSpeedID);
+                enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[2]);
 
                 EnemyMovementPatterns(enemyData.movementPatternID, angle, enemyData.moveSpeed);
             }
@@ -60,7 +64,8 @@ public class EnemyMovement : MonoBehaviour
             // Idle animation
             if (distance > enemyData.distanceBetween && !isDead)
             {
-                enemyAnimation.SetAnimation(1);
+                // enemyAnimation.SetAnimation(1);
+                enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[0]);
             }
         }
     }
@@ -87,19 +92,23 @@ public class EnemyMovement : MonoBehaviour
         // Retreat from player if too close
         if (
             Vector2.Distance(transform.position, playerTransform.position)
-            < enemyData.minimumDistance
+                < enemyData.minimumDistance
+            && enemyAnimation.animationFinished
         )
         {
-            enemyAnimation.SetAnimation(2);
+            // enemyAnimation.SetAnimation(2);
+            enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[1]);
             MoveTowardsPlayer(-speed);
         }
         // Move towards Player if too far away
         else if (
             Vector2.Distance(transform.position, playerTransform.position)
-            > enemyData.minimumDistance
+                > enemyData.minimumDistance
+            && enemyAnimation.animationFinished
         )
         {
-            enemyAnimation.SetAnimation(2);
+            // enemyAnimation.SetAnimation(2);
+            enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[2]);
             MoveTowardsPlayer(speed);
         }
     }

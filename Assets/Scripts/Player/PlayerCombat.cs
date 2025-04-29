@@ -47,8 +47,6 @@ public class PlayerCombat : MonoBehaviour
                 enemyLayers
             );
 
-            Debug.Log("hit: " + hitEnemies);
-
             // Damage Enemies
             foreach (Collider2D enemy in hitEnemies)
             {
