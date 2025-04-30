@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private TMP_Text killCount;
+    public TMP_Text killCount;
     public static GameManager Instance;
+
+    public float timeCount;
 
     [Header("Persistent Objects")]
     public GameObject[] persistentObjects;
