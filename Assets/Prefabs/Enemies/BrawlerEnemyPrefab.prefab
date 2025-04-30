@@ -76,7 +76,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534342668968302770}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -101,7 +101,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00093483925, y: 0.6497369}
+  m_Offset: {x: -0.012381554, y: 0.6497369}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -112,7 +112,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.53144217, y: 1.3110037}
+  m_Size: {x: 0.7178745, y: 1.3110037}
   m_EdgeRadius: 0
 --- !u!198 &401838876270470350
 ParticleSystem:
@@ -5014,7 +5014,12 @@ MonoBehaviour:
   masterAnimator: {fileID: 5592357499142522925}
   stateAnimation: []
   brawlAnimation: []
+  swordAnimation: []
+  projectileAnimation: []
   moveAnimation: []
+  moveSwordAnimation: []
+  moveProjectileAnimation: []
+  animationFinished: 0
 --- !u!114 &573808085215909119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5072,6 +5077,7 @@ GameObject:
   - component: {fileID: 2774407605495980913}
   - component: {fileID: 3176641881523581911}
   - component: {fileID: 5592357499142522925}
+  - component: {fileID: 122141301587511669}
   m_Layer: 6
   m_Name: EnemySprite
   m_TagString: Untagged
@@ -5167,6 +5173,60 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!60 &122141301587511669
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8000944060689282292}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 3, y: 2.625}
+    newSize: {x: 3, y: 2.625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.09375, y: 1.3125}
+      - {x: -0.125, y: 1.3125}
+      - {x: -0.25, y: 1.25}
+      - {x: -0.28125, y: 1.125}
+      - {x: -0.28125, y: 0}
+      - {x: 0.21875, y: 0}
+      - {x: 0.21875, y: 0.03125}
+      - {x: 0.28125, y: 0.3125}
+      - {x: 0.28125, y: 0.90625}
+  m_UseDelaunayMesh: 0
 --- !u!1 &8492633689631568047
 GameObject:
   m_ObjectHideFlags: 0

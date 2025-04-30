@@ -1336,7 +1336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &257430079
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1872,8 +1872,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 8399917932279528936}
+  mainNavigation: {fileID: 605139231}
+  gameOverManager: {fileID: 605139234}
   timeCount: 0
   killCount: 0
+  isGameOver: 0
 --- !u!114 &314684875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2573,9 +2576,9 @@ RectTransform:
   - {fileID: 917814588}
   m_Father: {fileID: 10179223}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 260.82715, y: -94.11325}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &441846250
@@ -2706,9 +2709,9 @@ RectTransform:
   - {fileID: 400631470}
   m_Father: {fileID: 10179223}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 260.82715, y: -282.33975}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &450768287
@@ -9145,11 +9148,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926bb85a97f83f241bff16cebc52b3ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuCanvas: {fileID: 1044172052}
+  menuCanvas: {fileID: 1044172052}
   gameUICanvas: {fileID: 1242408685}
   StartMenu: {fileID: 715834112}
   optionsMenu: {fileID: 1013863859}
   pauseMenu: {fileID: 1304395154}
+  gameOverMenu: {fileID: 705052388}
 --- !u!114 &605139232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9197,9 +9201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f74eb8a537d50ef43aea19ca79a801f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
-  killCountText: {fileID: 0}
-  timeText: {fileID: 0}
+  gameManager: {fileID: 314684873}
+  killCountText: {fileID: 1660840607}
+  timeText: {fileID: 997507356}
   clockUI: {fileID: 0}
 --- !u!114 &605139235
 MonoBehaviour:
@@ -9213,7 +9217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db6e6bf60b97a1418aba0e39cafa8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KillCountText: {fileID: 0}
+  KillCountText: {fileID: 1741886384}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -9667,9 +9671,9 @@ RectTransform:
   - {fileID: 130594975}
   m_Father: {fileID: 10179223}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 260.82715, y: -470.56625}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &737686544
@@ -16812,7 +16816,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1044172053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17364,7 +17368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1242408686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22571,6 +22575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 92ac78e9a7be6f841b5aaea46fea6b04, type: 2}
   animator: {fileID: 5399809105951939355}
+  IsDead: 0
 --- !u!4 &8721673061502898043
 Transform:
   m_ObjectHideFlags: 0

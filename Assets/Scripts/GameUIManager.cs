@@ -10,7 +10,7 @@ public class GameUIManager : MonoBehaviour
 
     void Awake()
     {
-        gameManager = gameObject.GetComponent<GameManager>();
+        gameManager = gameObject.GetComponentInParent<GameManager>();
     }
 
     private void Update()
