@@ -10,14 +10,22 @@ public class PlayerController : MonoBehaviour, IDoDamage
     [SerializeField]
     private Animator animator;
 
+    public static bool IsDead;
+
+    void Start()
+    {
+        IsDead = false;
+    }
+
     public void DoDamage(int damage)
     {
         DeathAnimation();
+        IsDead = true;
     }
 
     private void DeathAnimation()
     {
-        // animator.SetTrigger("IsDead");
+        animator.SetTrigger("IsDead");
         Debug.Log("Player is dead");
     }
 }

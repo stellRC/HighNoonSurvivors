@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public TMP_Text killCount;
     public static GameManager Instance;
-
-    public float timeCount;
 
     [Header("Persistent Objects")]
     public GameObject[] persistentObjects;
+
+    public float timeCount;
+    public int killCount;
 
     private void Awake()
     {

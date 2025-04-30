@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour, IDoDamage
     [SerializeField]
     private SpriteRenderer enemySprite;
 
+    private GameManager gameManager;
+
     private EnemyManager enemyManager;
 
     private ParticleSystem deathParticleSystem;
@@ -23,6 +25,7 @@ public class Enemy : MonoBehaviour, IDoDamage
 
     void Awake()
     {
+        gameManager = FindAnyObjectByType<GameManager>();
         deathParticleSystem = GetComponent<ParticleSystem>();
         // enemyAnimation = GetComponent<GunAnimation>();
         enemyAnimation = GetComponent<MasterAnimator>();
@@ -76,13 +79,15 @@ public class Enemy : MonoBehaviour, IDoDamage
     {
         DeathAnimation();
         DisableComponents();
+        gameManager.killCount += 1;
     }
 
     private void DeathAnimation()
     {
         // var deadAnimation = 13;
         // enemyAnimation.SetAnimation(deadAnimation);
-        enemyAnimation.ChangeAnimation(enemyAnimation.stateAnimation[0]);
+        // enemyAnimation.ChangeAnimation(enemyAnimation.stateAnimation[0]);
+        EnableParticles();
     }
 
     private void DisableComponents()

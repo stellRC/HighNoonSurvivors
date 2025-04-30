@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -14,11 +12,15 @@ public class GameOverManager : MonoBehaviour
     [SerializeField]
     private TMP_Text timeText;
 
+    // [SerializeField]
+    // private TMP_Text streakText;
+
     [SerializeField]
-    private TMP_Text streakText;
+    private ClockUI clockUI;
 
     public void OnGameOver()
     {
-        killCountText = gameManager.killCount;
+        killCountText.text = "Kill Count: " + gameManager.killCount;
+        timeText.text = "Alive: " + clockUI.hoursNormalized + ":" + clockUI.minutesNormalized;
     }
 }

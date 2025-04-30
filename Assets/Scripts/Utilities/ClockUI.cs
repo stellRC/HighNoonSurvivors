@@ -8,6 +8,9 @@ using UnityEngine.UI;
 public class ClockUI : MonoBehaviour
 {
     private const float secondsPerGameDay = 60f;
+    private const float rotationDegreesPerDay = 360f;
+    private const float hoursPerDay = 24f;
+    private const float minutesPerHour = 60f;
 
     private Transform clockHourHandTransform;
     private Transform clockMinuteHandTransform;
@@ -15,10 +18,11 @@ public class ClockUI : MonoBehaviour
     private Transform pivotPoint;
 
     private float day;
-    private float hoursNormalized;
-    private float minutesNormalized;
-
-    public TMP_Text finalTime;
+    private float dayNormalized;
+    public float hoursNormalized;
+    public float minutesNormalized;
+    private string hoursString;
+    private string minutesString;
 
     private void Awake()
     {
@@ -34,27 +38,43 @@ public class ClockUI : MonoBehaviour
             day += Time.deltaTime / secondsPerGameDay;
         }
 
+        dayNormalized = day % 1f;
+
         hoursNormalized = Time.deltaTime % 1f;
 
         minutesNormalized = day % 1f;
 
         UpdateClock();
-        UpdateFinalTime();
-    }
-
-    private void UpdateFinalTime()
-    {
-        // finalTime = TextMeshPro.SetText("{0} : {1}", hoursNormalized, minutesNormalized);
+        hoursString = Mathf.Floor(dayNormalized * hoursPerDay).ToString("00");
+        minutesString = Mathf
+            .Floor(dayNormalized * hoursPerDay % 1f * minutesPerHour)
+            .ToString("00");
+        Debug.Log(hoursString + ":" + minutesString);
     }
 
     private void UpdateClock()
     {
-        clockHourHandTransform.RotateAround(pivotPoint.position, Vector3.forward, -hoursNormalized);
+        // clockHourHandTransform.RotateAround(
+        //     pivotPoint.position,
+        //     Vector3.forward,
+        //     -dayNormalized * rotationDegreesPerDay
+        // );
 
-        clockMinuteHandTransform.RotateAround(
-            pivotPoint.position,
-            Vector3.forward,
-            -minutesNormalized
+        // clockMinuteHandTransform.RotateAround(
+        //     pivotPoint.position,
+        //     Vector3.forward,
+        //     -dayNormalized * rotationDegreesPerDay * hoursPerDay
+        // );
+
+        clockHourHandTransform.eulerAngles = new Vector3(
+            0,
+            0,
+            -dayNormalized * rotationDegreesPerDay
+        );
+        clockMinuteHandTransform.eulerAngles = new Vector3(
+            0,
+            0,
+            -dayNormalized * rotationDegreesPerDay * hoursPerDay
         );
     }
 }
