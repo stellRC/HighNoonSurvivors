@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class ClockUI : MonoBehaviour
 {
@@ -11,6 +6,8 @@ public class ClockUI : MonoBehaviour
     private const float rotationDegreesPerDay = 360f;
     private const float hoursPerDay = 24f;
     private const float minutesPerHour = 60f;
+
+    private GameManager gameManager;
 
     private Transform clockHourHandTransform;
     private Transform clockMinuteHandTransform;
@@ -26,6 +23,7 @@ public class ClockUI : MonoBehaviour
 
     private void Awake()
     {
+        gameManager = FindAnyObjectByType<GameManager>();
         pivotPoint = transform.Find("PivotPoint");
         clockHourHandTransform = transform.Find("HourHand");
         clockMinuteHandTransform = transform.Find("MinuteHand");
@@ -33,7 +31,7 @@ public class ClockUI : MonoBehaviour
 
     private void Update()
     {
-        if (!MainNavigation.isPaused)
+        if (!MainNavigation.isPaused || !gameManager.isGameOver)
         {
             day += Time.deltaTime / secondsPerGameDay;
         }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDoDamage
@@ -10,7 +8,7 @@ public class PlayerController : MonoBehaviour, IDoDamage
     [SerializeField]
     private Animator animator;
 
-    public static bool IsDead;
+    public bool IsDead;
 
     void Start()
     {

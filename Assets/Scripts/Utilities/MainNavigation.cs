@@ -1,13 +1,11 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.TerrainTools;
 
 public class MainNavigation : MonoBehaviour
 {
     [Header("Canvas Groups")]
     [SerializeField]
-    private GameObject MenuCanvas;
+    private GameObject menuCanvas;
 
     [SerializeField]
     private GameObject gameUICanvas;
@@ -21,6 +19,9 @@ public class MainNavigation : MonoBehaviour
 
     [SerializeField]
     private GameObject pauseMenu;
+
+    [SerializeField]
+    private GameObject gameOverMenu;
 
     public static bool isPaused;
 
@@ -51,7 +52,7 @@ public class MainNavigation : MonoBehaviour
 
     private void InitializeObjStates()
     {
-        MenuCanvas.SetActive(true);
+        menuCanvas.SetActive(true);
         // hide kill count and settings button
         gameUICanvas.SetActive(false);
         // Set Start Menu active
@@ -69,7 +70,7 @@ public class MainNavigation : MonoBehaviour
         // Set main menu to inactive
         StartMenu.SetActive(false);
         // hide menus
-        MenuCanvas.SetActive(false);
+        menuCanvas.SetActive(false);
         // Activate pause menu in preparation for game pause
         pauseMenu.SetActive(true);
         // Show kill count and settings button
@@ -103,7 +104,6 @@ public class MainNavigation : MonoBehaviour
 
     public void TogglePauseMenu()
     {
-        Debug.Log("cat");
         if (!isPaused)
         {
             // Stop in-game clock to stop animations and updates
@@ -111,7 +111,7 @@ public class MainNavigation : MonoBehaviour
             isPaused = true;
 
             // clock.SetActive(false);
-            MenuCanvas.SetActive(true);
+            menuCanvas.SetActive(true);
             pauseMenu.SetActive(true);
             gameUICanvas.SetActive(false);
         }
@@ -122,9 +122,18 @@ public class MainNavigation : MonoBehaviour
             isPaused = false;
 
             // clock.SetActive(true);
-            MenuCanvas.SetActive(false);
+            menuCanvas.SetActive(false);
             gameUICanvas.SetActive(true);
         }
+    }
+
+    public void ToggleGameOverMenu()
+    {
+        menuCanvas.SetActive(true);
+
+        gameUICanvas.SetActive(false);
+
+        gameOverMenu.SetActive(true);
     }
 
     public void ToggleOptionsMenu()

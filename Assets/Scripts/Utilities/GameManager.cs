@@ -1,50 +1,42 @@
-using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [Header("Persistent Objects")]
-    public GameObject[] persistentObjects;
+    [SerializeField]
+    private PlayerController playerController;
+
+    [SerializeField]
+    private MainNavigation mainNavigation;
+
+    [SerializeField]
+    private GameOverManager gameOverManager;
 
     public float timeCount;
     public int killCount;
+
+    public bool isGameOver;
 
     private void Awake()
     {
         if (Instance != null)
         {
-            CleanUpAndDestroy();
             return;
         }
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-            MarkPersistentObjects();
         }
     }
 
-    private void MarkPersistentObjects()
+    void Update()
     {
-        foreach (GameObject obj in persistentObjects)
-        {
-            if (obj != null)
-            {
-                DontDestroyOnLoad(obj);
-            }
-        }
-    }
+        isGameOver = playerController.IsDead;
 
-    // Destroy duplicates of persistent objects
-    private void CleanUpAndDestroy()
-    {
-        foreach (GameObject obj in persistentObjects)
+        if (isGameOver)
         {
-            Destroy(obj);
+            gameOverManager.OnGameOver();
         }
-        // game manager destroys itself
-        Destroy(gameObject);
     }
 }
