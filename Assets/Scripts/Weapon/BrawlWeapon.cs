@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BrawlWeapon : WeaponBase
@@ -16,6 +14,7 @@ public class BrawlWeapon : WeaponBase
 
     private float timeBetweenShots = 0;
     private float nextShotTime;
+    private bool isTriggered;
 
     void Awake()
     {
@@ -46,7 +45,8 @@ public class BrawlWeapon : WeaponBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
+        // if (isTriggered)
+        //     return;
         // Damage Enemy
         IDoDamage iDoDamage = collision.gameObject.GetComponent<IDoDamage>();
 
@@ -54,6 +54,7 @@ public class BrawlWeapon : WeaponBase
         {
             Debug.Log("player hit");
             iDoDamage?.DoDamage(damage);
+            // isTriggered = true;
         }
     }
 }

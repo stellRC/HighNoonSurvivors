@@ -1871,7 +1871,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ae57bf041a3aab4483eb90286abff10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 8399917932279528936}
   mainNavigation: {fileID: 605139231}
   gameOverManager: {fileID: 605139234}
   timeCount: 0
@@ -9204,7 +9203,7 @@ MonoBehaviour:
   gameManager: {fileID: 314684873}
   killCountText: {fileID: 1660840607}
   timeText: {fileID: 997507356}
-  clockUI: {fileID: 0}
+  clockUI: {fileID: 481279762}
 --- !u!114 &605139235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22575,7 +22574,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 92ac78e9a7be6f841b5aaea46fea6b04, type: 2}
   animator: {fileID: 5399809105951939355}
-  IsDead: 0
 --- !u!4 &8721673061502898043
 Transform:
   m_ObjectHideFlags: 0

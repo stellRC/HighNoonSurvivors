@@ -130,6 +130,7 @@ public class MainNavigation : MonoBehaviour
     public void ToggleGameOverMenu()
     {
         menuCanvas.SetActive(true);
+        pauseMenu.SetActive(false);
 
         gameUICanvas.SetActive(false);
 

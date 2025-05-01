@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Following : MonoBehaviour {
-
+public class Following : MonoBehaviour
+{
     public Transform planet;
 
     public Transform followArrow;
@@ -51,15 +49,28 @@ public class Following : MonoBehaviour {
 
         // Titles
         var titleOffset = new Vector3(0.0f, -20f, -18f);
-        LeanTween.followDamp(dude1Title, dude1, LeanProp.localPosition, 0.6f).setOffset(titleOffset);
-        LeanTween.followSpring(dude2Title, dude2, LeanProp.localPosition, 0.6f).setOffset(titleOffset);
-        LeanTween.followBounceOut(dude3Title, dude3, LeanProp.localPosition, 0.6f).setOffset(titleOffset);
-        LeanTween.followSpring(dude4Title, dude4, LeanProp.localPosition, 0.6f, -1f, 1.5f, 0.8f).setOffset(titleOffset);
-        LeanTween.followLinear(dude5Title, dude5, LeanProp.localPosition, 30f).setOffset(titleOffset);
+        LeanTween
+            .followDamp(dude1Title, dude1, LeanProp.localPosition, 0.6f)
+            .setOffset(titleOffset);
+        LeanTween
+            .followSpring(dude2Title, dude2, LeanProp.localPosition, 0.6f)
+            .setOffset(titleOffset);
+        LeanTween
+            .followBounceOut(dude3Title, dude3, LeanProp.localPosition, 0.6f)
+            .setOffset(titleOffset);
+        LeanTween
+            .followSpring(dude4Title, dude4, LeanProp.localPosition, 0.6f, -1f, 1.5f, 0.8f)
+            .setOffset(titleOffset);
+        LeanTween
+            .followLinear(dude5Title, dude5, LeanProp.localPosition, 30f)
+            .setOffset(titleOffset);
 
         // Rotate Planet
         var localPos = Camera.main.transform.InverseTransformPoint(planet.transform.position);
-        LeanTween.rotateAround(Camera.main.gameObject, Vector3.left, 360f, 300f).setPoint(localPos).setRepeat(-1);
+        LeanTween
+            .rotateAround(Camera.main.gameObject, Vector3.left, 360f, 300f)
+            .setPoint(localPos)
+            .setRepeat(-1);
     }
 
     private float fromY;
@@ -74,11 +85,16 @@ public class Following : MonoBehaviour {
         // Use the smooth methods to follow variables in which ever manner you wish!
         fromY = LeanSmooth.spring(fromY, followArrow.localPosition.y, ref velocityY, 1.1f);
         fromVec3 = LeanSmooth.spring(fromVec3, dude5Title.localPosition, ref velocityVec3, 1.1f);
-        fromColor = LeanSmooth.spring(fromColor, dude1.GetComponent<Renderer>().material.color, ref velocityColor, 1.1f);
+        fromColor = LeanSmooth.spring(
+            fromColor,
+            dude1.GetComponent<Renderer>().material.color,
+            ref velocityColor,
+            1.1f
+        );
         Debug.Log("Smoothed y:" + fromY + " vec3:" + fromVec3 + " color:" + fromColor);
     }
 
-	private void moveArrow()
+    private void moveArrow()
     {
         LeanTween.moveLocalY(followArrow.gameObject, Random.Range(-100f, 100f), 0f);
 

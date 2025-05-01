@@ -5,9 +5,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField]
-    private PlayerController playerController;
-
-    [SerializeField]
     private MainNavigation mainNavigation;
 
     [SerializeField]
@@ -32,10 +29,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        isGameOver = playerController.IsDead;
-
         if (isGameOver)
         {
+            mainNavigation.ToggleGameOverMenu();
             gameOverManager.OnGameOver();
         }
     }

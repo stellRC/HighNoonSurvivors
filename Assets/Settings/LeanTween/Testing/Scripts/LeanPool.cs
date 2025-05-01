@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 /**
@@ -16,7 +15,12 @@ namespace DentedPixel
 
         private int retrieveIndex = -1;
 
-        public GameObject[] init(GameObject prefab, int count, Transform parent = null, bool retrieveOldestItems = true)
+        public GameObject[] init(
+            GameObject prefab,
+            int count,
+            Transform parent = null,
+            bool retrieveOldestItems = true
+        )
         {
             array = new GameObject[count];
 
@@ -34,7 +38,8 @@ namespace DentedPixel
             return array;
         }
 
-        public void init(GameObject[] array, bool retrieveOldestItems = true){
+        public void init(GameObject[] array, bool retrieveOldestItems = true)
+        {
             this.array = array;
 
             if (retrieveOldestItems)
@@ -72,7 +77,7 @@ namespace DentedPixel
             if (oldestItems != null)
             {
                 GameObject go = oldestItems.Dequeue();
-                oldestItems.Enqueue(go);// put at the end of the queue again
+                oldestItems.Enqueue(go); // put at the end of the queue again
 
                 return go;
             }
@@ -80,5 +85,4 @@ namespace DentedPixel
             return null;
         }
     }
-
 }
