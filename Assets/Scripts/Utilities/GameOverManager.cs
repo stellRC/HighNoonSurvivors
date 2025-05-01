@@ -21,6 +21,6 @@ public class GameOverManager : MonoBehaviour
     public void OnGameOver()
     {
         killCountText.text = "Kill Count: " + gameManager.killCount;
-        timeText.text = "Alive: " + clockUI.hoursNormalized + ":" + clockUI.minutesNormalized;
+        timeText.text = "Alive: " + clockUI.hoursString + ":" + clockUI.minutesString;
     }
 }

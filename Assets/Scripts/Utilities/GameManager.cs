@@ -31,8 +31,8 @@ public class GameManager : MonoBehaviour
     {
         if (isGameOver)
         {
-            mainNavigation.ToggleGameOverMenu();
             gameOverManager.OnGameOver();
+            mainNavigation.ToggleGameOverMenu();
         }
     }
 }

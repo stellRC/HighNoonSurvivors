@@ -31,11 +31,12 @@ public class MainNavigation : MonoBehaviour
 
     void Awake()
     {
-        // Prevent pause menu from opening while in main menu
-        isPaused = true;
-        gameScene = false;
-        InitializeObjStates();
         state = false;
+    }
+
+    void Start()
+    {
+        InitializeObjStates();
     }
 
     void Update()
@@ -61,7 +62,15 @@ public class MainNavigation : MonoBehaviour
         optionsMenu.SetActive(false);
         // Set Pause Menu inactive
         pauseMenu.SetActive(false);
-        // Set Player and Clock active
+        // Hide Game over stats
+        Debug.Log("pre init: " + gameOverMenu.activeSelf);
+        gameOverMenu.SetActive(false);
+        Debug.Log("post init: " + gameOverMenu.activeSelf);
+        // Prevent pause menu from opening while in main menu
+        isPaused = true;
+        gameScene = false;
+        // Start internal game clock (enable fog animations)
+        Time.timeScale = 1f;
     }
 
     // Load game scene, set start menu inactive
@@ -87,19 +96,12 @@ public class MainNavigation : MonoBehaviour
     // Return to main menu from pause screen
     public void ReturnToMainMenu()
     {
+        // Hide Game over stats
+        // gameOverMenu.SetActive(false);
         // Load new scene
         SceneManager.LoadScene("MainMenu");
-        // Set main menu to inactive
-        StartMenu.SetActive(true);
-        pauseMenu.SetActive(false);
-        // Show kill count and settings button
-        gameUICanvas.SetActive(false);
-        // Enable pause menu to be opened
-        isPaused = true;
-        // Returning to main menu scene
-        gameScene = false;
-        // Start internal game clock (enable fog animations)
-        Time.timeScale = 1f;
+
+        // InitializeObjStates();
     }
 
     public void TogglePauseMenu()
