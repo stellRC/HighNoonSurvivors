@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerDeathAnimation : StateMachineBehaviour
 {
@@ -6,5 +7,6 @@ public class PlayerDeathAnimation : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         FindObjectOfType<GameManager>().isGameOver = true;
+        animator.enabled = false;
     }
 }

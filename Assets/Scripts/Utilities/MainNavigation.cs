@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.RenderGraphModule;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainNavigation : MonoBehaviour
 {
+    private FadingCanvas fade;
+
     [Header("Canvas Groups")]
     [SerializeField]
     private GameObject menuCanvas;
@@ -32,6 +35,12 @@ public class MainNavigation : MonoBehaviour
     [SerializeField]
     private Slider loadingSlider;
 
+    [SerializeField]
+    private GameObject killCount;
+
+    [SerializeField]
+    private GameObject settingsButton;
+
     public static bool isPaused;
 
     private bool gameScene;
@@ -41,6 +50,7 @@ public class MainNavigation : MonoBehaviour
     void Awake()
     {
         state = false;
+        fade = gameObject.GetComponent<FadingCanvas>();
     }
 
     void Start()
@@ -50,13 +60,10 @@ public class MainNavigation : MonoBehaviour
 
     void Update()
     {
-        // // Handle keyboard input
-        if (Input.GetKeyDown(KeyCode.Escape) && gameScene)
+        // // // Handle keyboard input
+        if (Input.GetKeyDown(KeyCode.Escape) && gameScene && gameOverMenu.activeSelf == false)
         {
             TogglePauseMenu();
-            // pauseMenu.SetActive(true);
-            // optionsMenu.SetActive(false);
-            // Set Player and Clock active
         }
     }
 
@@ -73,9 +80,9 @@ public class MainNavigation : MonoBehaviour
         // Set Pause Menu inactive
         pauseMenu.SetActive(false);
         // Hide Game over stats
-        Debug.Log("pre init: " + gameOverMenu.activeSelf);
+
         gameOverMenu.SetActive(false);
-        Debug.Log("post init: " + gameOverMenu.activeSelf);
+
         // Prevent pause menu from opening while in main menu
         isPaused = true;
         gameScene = false;
@@ -90,6 +97,7 @@ public class MainNavigation : MonoBehaviour
         // hide menus
         menuCanvas.SetActive(false);
         loadingCanvas.SetActive(true);
+        fade.FadeOut();
 
         // Run Async
         StartCoroutine(LoadLevelASync("Level_One"));
@@ -104,9 +112,19 @@ public class MainNavigation : MonoBehaviour
         {
             float progressValue = Mathf.Clamp01(loadOperation.progress / 0.9f);
             loadingSlider.value = progressValue;
+
             yield return null;
         }
-        StartGame();
+        if (gameScene)
+        {
+            fade.FadeIn();
+            InitializeObjStates();
+        }
+        else
+        {
+            fade.FadeIn();
+            StartGame();
+        }
     }
 
     // Load game scene, set start menu inactive
@@ -114,6 +132,8 @@ public class MainNavigation : MonoBehaviour
     {
         // Show kill count and settings button
         gameUICanvas.SetActive(true);
+        settingsButton.SetActive(true);
+        killCount.SetActive(true);
         // Load new scene
         // SceneManager.LoadScene("Level_One");
         loadingCanvas.SetActive(false);
@@ -127,9 +147,8 @@ public class MainNavigation : MonoBehaviour
     // Return to main menu from pause screen
     public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
-
-        InitializeObjStates();
+        // SceneManager.LoadScene("MainMenu");
+        StartCoroutine(LoadLevelASync("MainMenu"));
     }
 
     public void TogglePauseMenu()
@@ -146,6 +165,7 @@ public class MainNavigation : MonoBehaviour
             // clock.SetActive(false);
             menuCanvas.SetActive(true);
             pauseMenu.SetActive(true);
+
             gameUICanvas.SetActive(false);
             optionsMenu.SetActive(false);
         }
@@ -158,12 +178,13 @@ public class MainNavigation : MonoBehaviour
             // clock.SetActive(true);
             menuCanvas.SetActive(false);
             gameUICanvas.SetActive(true);
-            optionsMenu.SetActive(false);
         }
     }
 
     public void ToggleGameOverMenu()
     {
+        settingsButton.SetActive(false);
+        killCount.SetActive(false);
         gameOverMenu.SetActive(true);
     }
 
@@ -171,23 +192,16 @@ public class MainNavigation : MonoBehaviour
     {
         if (gameScene)
         {
-            pauseMenu.SetActive(false);
+            pauseMenu.SetActive(state);
         }
         else
         {
-            StartMenu.SetActive(false);
+            StartMenu.SetActive(state);
         }
 
-        if (optionsMenu.activeSelf)
-        {
-            optionsMenu.SetActive(false);
-        }
-        else
-        {
-            optionsMenu.SetActive(true);
-        }
+        optionsMenu.SetActive(!state);
 
-        // state = !state;
+        state = !state;
     }
 
     // Exit application

@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour
             mainNavigation.ToggleGameOverMenu();
 
             gameOverPanel = true;
+            isGameOver = false;
+        }
+        else
+        {
+            gameOverPanel = false;
         }
     }
 }
