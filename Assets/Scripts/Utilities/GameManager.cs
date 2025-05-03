@@ -10,6 +10,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameOverManager gameOverManager;
 
+    [SerializeField]
+    private PlayerController playerController;
+
+    [SerializeField]
+    private SkillTreeManager skillTreeManager;
+
     public float timeCount;
     public int killCount;
 
@@ -27,6 +33,11 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    private void Start()
+    {
+        skillTreeManager.SetPlayerSkills(playerController.GetPlayerSkills());
     }
 
     void Update()
