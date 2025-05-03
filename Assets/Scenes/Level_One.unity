@@ -1611,8 +1611,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2eeb848c17dcb4e8bb62aded40f6d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoursNormalized: 0
-  minutesNormalized: 0
+  hoursString: 
+  minutesString: 
 --- !u!4 &908538360
 Transform:
   m_ObjectHideFlags: 0

@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     public bool isGameOver;
 
+    private bool gameOverPanel;
+
     private void Awake()
     {
         if (Instance != null)
@@ -29,10 +31,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isGameOver)
+        if (isGameOver && !gameOverPanel)
         {
             gameOverManager.OnGameOver();
             mainNavigation.ToggleGameOverMenu();
+
+            gameOverPanel = true;
         }
     }
 }
