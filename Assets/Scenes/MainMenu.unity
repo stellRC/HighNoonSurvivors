@@ -2221,7 +2221,6 @@ GameObject:
   - component: {fileID: 314684877}
   - component: {fileID: 314684878}
   - component: {fileID: 314684879}
-  - component: {fileID: 314684880}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2327,6 +2326,7 @@ MonoBehaviour:
   speedBtn: {fileID: 1537548904}
   throwBtn: {fileID: 62640374}
   lockedColor: {r: 0.509434, g: 0, b: 0, a: 1}
+  objectiveManager: {fileID: 314684879}
 --- !u!114 &314684879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2341,19 +2341,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectivePrefab: {fileID: 2196840061291604762, guid: 11d1235bfecb97d4d81c32daa085ffd3, type: 3}
   objectivePanel: {fileID: 532447349}
---- !u!114 &314684880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 314684871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c690271df0db5849b74087b41932dc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectiveManager: {fileID: 314684879}
 --- !u!1 &344988757
 GameObject:
   m_ObjectHideFlags: 0
@@ -10585,8 +10572,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2060772002}
-  - {fileID: 1560408773}
   - {fileID: 1019779642}
+  - {fileID: 1560408773}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

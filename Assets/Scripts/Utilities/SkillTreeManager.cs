@@ -29,6 +29,9 @@ public class SkillTreeManager : MonoBehaviour
     [SerializeField]
     private Color lockedColor;
 
+    [SerializeField]
+    private ObjectiveManager objectiveManager;
+
     private void Awake()
     {
         earthBtn.onClick.AddListener(UnlockSkillEarth);
@@ -41,8 +44,10 @@ public class SkillTreeManager : MonoBehaviour
 
     private void UnlockSkillSpeed()
     {
-        Debug.Log("speed");
-        playerSkills.TryUnlockSkill(PlayerSkills.SkillType.SpeedBoost);
+        if (objectiveManager.skillObjectives["Kill 10 Zombies"] == true)
+        {
+            playerSkills.TryUnlockSkill(PlayerSkills.SkillType.SpeedBoost);
+        }
     }
 
     private void UnlockSkillElectro()
