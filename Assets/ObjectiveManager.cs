@@ -12,8 +12,6 @@ public class ObjectiveManager : MonoBehaviour
 
     public Dictionary<string, bool> skillObjectives;
 
-    private SkillTreeManager skillTreeManager;
-
     private void Awake()
     {
         skillObjectives = new()

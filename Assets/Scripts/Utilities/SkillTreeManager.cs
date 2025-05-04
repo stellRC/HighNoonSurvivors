@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,6 +36,7 @@ public class SkillTreeManager : MonoBehaviour
     private void Awake()
     {
         earthBtn.onClick.AddListener(UnlockSkillEarth);
+
         electroBtn.onClick.AddListener(UnlockSkillElectro);
         speedBtn.onClick.AddListener(UnlockSkillSpeed);
         throwBtn.onClick.AddListener(UnlockSkillThrow);
@@ -44,7 +46,7 @@ public class SkillTreeManager : MonoBehaviour
 
     private void UnlockSkillSpeed()
     {
-        if (objectiveManager.skillObjectives["Kill 10 Zombies"] == true)
+        if (objectiveManager.skillObjectives["Kill 10 Zombies"])
         {
             playerSkills.TryUnlockSkill(PlayerSkills.SkillType.SpeedBoost);
         }
@@ -52,17 +54,26 @@ public class SkillTreeManager : MonoBehaviour
 
     private void UnlockSkillElectro()
     {
-        playerSkills.TryUnlockSkill(PlayerSkills.SkillType.Electrocute);
+        if (objectiveManager.skillObjectives["Kill 20 Zombies"])
+        {
+            playerSkills.TryUnlockSkill(PlayerSkills.SkillType.Electrocute);
+        }
     }
 
     private void UnlockSkillEarth()
     {
-        playerSkills.TryUnlockSkill(PlayerSkills.SkillType.Earthshatter);
+        if (objectiveManager.skillObjectives["Kill 30 Zombies"])
+        {
+            playerSkills.TryUnlockSkill(PlayerSkills.SkillType.Earthshatter);
+        }
     }
 
     private void UnlockSkillThrow()
     {
-        playerSkills.TryUnlockSkill(PlayerSkills.SkillType.ThrowOverarm);
+        if (objectiveManager.skillObjectives["Kill 40 Zombies"])
+        {
+            playerSkills.TryUnlockSkill(PlayerSkills.SkillType.ThrowOverarm);
+        }
     }
 
     public void SetPlayerSkills(PlayerSkills playerSkills)
@@ -76,53 +87,30 @@ public class SkillTreeManager : MonoBehaviour
         PlayerSkills.OnSkillUnlockedEventArgs e
     )
     {
-        UpdateVisuals();
+        UpdateVisuals(e.skillType);
     }
 
-    private void UpdateVisuals()
+    private void UpdateVisuals(PlayerSkills.SkillType skillType)
     {
-        if (playerSkills.CanUnlockSkill(PlayerSkills.SkillType.Earthshatter))
+        if (playerSkills.CanUnlockSkill(skillType))
         {
-            Debug.Log("unlocked earth");
-            earthBtn.GetComponent<Image>().color = unlockedColor;
-        }
-        else
-        {
-            Debug.Log("locked earth");
-            earthBtn.GetComponent<Image>().color = lockedColor;
-        }
-
-        if (playerSkills.CanUnlockSkill(PlayerSkills.SkillType.Electrocute))
-        {
-            Debug.Log("unlocked");
-            electroBtn.GetComponent<Image>().color = unlockedColor;
-        }
-        else
-        {
-            Debug.Log("locked electro");
-            electroBtn.GetComponent<Image>().color = lockedColor;
-        }
-
-        if (playerSkills.CanUnlockSkill(PlayerSkills.SkillType.SpeedBoost))
-        {
-            Debug.Log("unlocked");
-            speedBtn.GetComponent<Image>().color = unlockedColor;
-        }
-        else
-        {
-            Debug.Log("locked speed");
-            speedBtn.GetComponent<Image>().color = lockedColor;
-        }
-
-        if (playerSkills.CanUnlockSkill(PlayerSkills.SkillType.ThrowOverarm))
-        {
-            Debug.Log("unlocked");
-            throwBtn.GetComponent<Image>().color = unlockedColor;
-        }
-        else
-        {
-            Debug.Log("locked throw");
-            throwBtn.GetComponent<Image>().color = lockedColor;
+            switch (skillType)
+            {
+                case PlayerSkills.SkillType.Electrocute:
+                    electroBtn.GetComponent<Image>().color = unlockedColor;
+                    break;
+                case PlayerSkills.SkillType.Earthshatter:
+                    earthBtn.GetComponent<Image>().color = unlockedColor;
+                    break;
+                case PlayerSkills.SkillType.ThrowOverarm:
+                    throwBtn.GetComponent<Image>().color = unlockedColor;
+                    break;
+                case PlayerSkills.SkillType.SpeedBoost:
+                    speedBtn.GetComponent<Image>().color = unlockedColor;
+                    break;
+                case PlayerSkills.SkillType.None:
+                    break;
+            }
         }
     }
 }
