@@ -36,7 +36,6 @@ public class SkillTreeManager : MonoBehaviour
     private void Awake()
     {
         earthBtn.onClick.AddListener(UnlockSkillEarth);
-
         electroBtn.onClick.AddListener(UnlockSkillElectro);
         speedBtn.onClick.AddListener(UnlockSkillSpeed);
         throwBtn.onClick.AddListener(UnlockSkillThrow);

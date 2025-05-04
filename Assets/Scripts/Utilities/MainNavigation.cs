@@ -11,7 +11,7 @@ public class MainNavigation : MonoBehaviour
 
     [Header("Canvas Groups")]
     [SerializeField]
-    private GameObject menuCanvas;
+    private GameObject PersistentCanvas;
 
     [SerializeField]
     private GameObject gameUICanvas;
@@ -19,9 +19,18 @@ public class MainNavigation : MonoBehaviour
     [SerializeField]
     private GameObject loadingCanvas;
 
+    [SerializeField]
+    private GameObject NonPersistentCanvas;
+
     [Header("UI Elements")]
     [SerializeField]
-    private GameObject StartMenu;
+    private GameObject startMenu;
+
+    [SerializeField]
+    private GameObject aboutMenu;
+
+    [SerializeField]
+    private GameObject objectivesMenu;
 
     [SerializeField]
     private GameObject optionsMenu;
@@ -69,18 +78,17 @@ public class MainNavigation : MonoBehaviour
 
     private void InitializeObjStates()
     {
-        menuCanvas.SetActive(true);
-        // hide kill count and settings button
+        NonPersistentCanvas.SetActive(true);
+        PersistentCanvas.SetActive(false);
+
+        startMenu.SetActive(true);
+        aboutMenu.SetActive(false);
+        objectivesMenu.SetActive(false);
+
         loadingCanvas.SetActive(false);
         gameUICanvas.SetActive(false);
-        // Set Start Menu active
-        StartMenu.SetActive(true);
-        // Set Options Menu inactive
         optionsMenu.SetActive(false);
-        // Set Pause Menu inactive
         pauseMenu.SetActive(false);
-        // Hide Game over stats
-
         gameOverMenu.SetActive(false);
 
         // Prevent pause menu from opening while in main menu
@@ -92,10 +100,9 @@ public class MainNavigation : MonoBehaviour
 
     public void LoadGame()
     {
-        // Set main menu to inactive
-        StartMenu.SetActive(false);
         // hide menus
-        menuCanvas.SetActive(false);
+        NonPersistentCanvas.SetActive(false);
+
         loadingCanvas.SetActive(true);
         fade.FadeOut();
 
@@ -107,7 +114,7 @@ public class MainNavigation : MonoBehaviour
     {
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad);
 
-        // While not finished loading
+        // Fill progress bar while scene is loading
         while (!loadOperation.isDone)
         {
             float progressValue = Mathf.Clamp01(loadOperation.progress / 0.9f);
@@ -115,11 +122,14 @@ public class MainNavigation : MonoBehaviour
 
             yield return null;
         }
+
+        // Load main menu
         if (gameScene)
         {
             fade.FadeIn();
             InitializeObjStates();
         }
+        // Load game scene
         else
         {
             fade.FadeIn();
@@ -127,27 +137,47 @@ public class MainNavigation : MonoBehaviour
         }
     }
 
-    // Load game scene, set start menu inactive
+    public void ToggleAbout()
+    {
+        if (startMenu.activeSelf)
+        {
+            startMenu.SetActive(false);
+            aboutMenu.SetActive(true);
+        }
+        else
+        {
+            startMenu.SetActive(true);
+            aboutMenu.SetActive(false);
+        }
+    }
+
+    public void ToggleObjectives()
+    {
+        if (startMenu.activeSelf)
+        {
+            startMenu.SetActive(false);
+            fade.FadeIn();
+            objectivesMenu.SetActive(true);
+        }
+    }
+
+    // Load game scene
     public void StartGame()
     {
         // Show kill count and settings button
         gameUICanvas.SetActive(true);
         settingsButton.SetActive(true);
         killCount.SetActive(true);
-        // Load new scene
-        // SceneManager.LoadScene("Level_One");
+
         loadingCanvas.SetActive(false);
 
-        // Enable pause menu to be opened
         isPaused = false;
-        // Starting game scene
         gameScene = true;
     }
 
     // Return to main menu from pause screen
     public void ReturnToMainMenu()
     {
-        // SceneManager.LoadScene("MainMenu");
         StartCoroutine(LoadLevelASync("MainMenu"));
     }
 
@@ -163,7 +193,7 @@ public class MainNavigation : MonoBehaviour
             isPaused = true;
 
             // clock.SetActive(false);
-            menuCanvas.SetActive(true);
+            PersistentCanvas.SetActive(true);
             pauseMenu.SetActive(true);
 
             gameUICanvas.SetActive(false);
@@ -176,7 +206,7 @@ public class MainNavigation : MonoBehaviour
             isPaused = false;
 
             // clock.SetActive(true);
-            menuCanvas.SetActive(false);
+            PersistentCanvas.SetActive(false);
             gameUICanvas.SetActive(true);
         }
     }
@@ -196,7 +226,9 @@ public class MainNavigation : MonoBehaviour
         }
         else
         {
-            StartMenu.SetActive(state);
+            PersistentCanvas.SetActive(!state);
+            NonPersistentCanvas.SetActive(state);
+            startMenu.SetActive(state);
         }
 
         optionsMenu.SetActive(!state);
