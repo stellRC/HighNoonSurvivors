@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private SkillTreeManager skillTreeManager;
 
+    [SerializeField]
+    private ObjectiveManager objectiveManager;
+
     public float timeCount;
     public int killCount;
 

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 // HANDLE ALL PLAYER SKILLS
 public class PlayerSkills
@@ -16,6 +15,7 @@ public class PlayerSkills
 
     public enum SkillType
     {
+        None,
         Earthshatter,
         Electrocute,
         SpeedBoost,
@@ -29,7 +29,7 @@ public class PlayerSkills
         unlockedSkillTypeList = new List<SkillType>();
     }
 
-    public void UnlockSkill(SkillType skillType)
+    private void UnlockSkill(SkillType skillType)
     {
         if (!IsSkillUnlocked(skillType))
         {
@@ -42,5 +42,48 @@ public class PlayerSkills
     public bool IsSkillUnlocked(SkillType skillType)
     {
         return unlockedSkillTypeList.Contains(skillType);
+    }
+
+    public bool GetSkillRequirement(SkillType skillType)
+    {
+        return skillType switch
+        {
+            // SkillType.Earthshatter => CheckValue("Kill 10 Zombies"),
+            // SkillType.Electrocute => CheckValue("Kill 20 Zombies"),
+            // SkillType.SpeedBoost => CheckValue("Kill 30 Zombies"),
+            // SkillType.ThrowOverarm => CheckValue("Kill 40 Zombies"),
+            SkillType.None
+                => false,
+            _ => false,
+        };
+    }
+
+    public void Test()
+    {
+        Debug.Log("cat");
+    }
+
+    public bool TryUnlockSkill(SkillType skillType)
+    {
+        bool objectiveRequirement = GetSkillRequirement(skillType);
+
+        if (objectiveRequirement != false)
+        {
+            UnlockSkill(skillType);
+            return true;
+        }
+        Debug.Log("not unlocked: " + skillType);
+        return false;
+    }
+
+    public bool CanUnlockSkill(SkillType skillType)
+    {
+        bool objectiveRequirement = GetSkillRequirement(skillType);
+
+        if (objectiveRequirement != false)
+        {
+            return true;
+        }
+        return false;
     }
 }
