@@ -31,11 +31,14 @@ public class PlayerMovement : MonoBehaviour
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
         isDashing = false;
+        IsFacingRight = true;
 
         isMoving = false;
 
         activeMoveSpeed = moveSpeed;
         dashSpeed = 7f;
+
+        TurnCheck(moveInput);
     }
 
     private void Update()
@@ -84,10 +87,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (moveInput.x > 0 && !IsFacingRight)
         {
+            Debug.Log("Is facing right: " + IsFacingRight);
             Turn();
         }
-        else if (moveInput.x < 0 && IsFacingRight)
+        else if (moveInput.x <= 0 && IsFacingRight)
         {
+            Debug.Log("Is facing right: " + IsFacingRight);
             Turn();
         }
     }
@@ -96,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsFacingRight)
         {
-            Vector3 rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
+            Vector3 rotator = new(transform.rotation.x, 180f, transform.rotation.z);
             transform.rotation = Quaternion.Euler(rotator);
             IsFacingRight = !IsFacingRight;
 
@@ -105,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            Vector3 rotator = new Vector3(transform.rotation.x, 0f, transform.rotation.z);
+            Vector3 rotator = new(transform.rotation.x, 0f, transform.rotation.z);
             transform.rotation = Quaternion.Euler(rotator);
             IsFacingRight = !IsFacingRight;
 

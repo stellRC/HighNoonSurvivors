@@ -18,6 +18,7 @@ public class EnemyManager : MonoBehaviour
 
     public void SpawnMoreEnemies()
     {
+        Debug.Log("Spawn");
         PlaceEnemy(brawlEnemy);
         PlaceEnemy(projectileEnemy);
     }
@@ -27,7 +28,6 @@ public class EnemyManager : MonoBehaviour
         int enemySpawnCount = EnemySpawnCount();
         for (int i = 0; i < enemySpawnCount; i++)
         {
-            RandomScreenCornerPosition();
             InstantiateEnemy(enemyData);
         }
     }
@@ -44,7 +44,7 @@ public class EnemyManager : MonoBehaviour
     private void RandomScreenCornerPosition()
     {
         randomPositionOnScreen = Camera.main.ViewportToWorldPoint(
-            new Vector2(Random.Range(0, 1), Random.Range(0, 1))
+            new Vector2(Random.Range(0, 2), Random.Range(0, 2))
         );
     }
 
@@ -55,6 +55,8 @@ public class EnemyManager : MonoBehaviour
 
     private void InstantiateEnemy(EnemyData enemyData)
     {
+        RandomScreenCornerPosition();
+
         ObjectPoolManager.SpawnObject(
             enemyData.enemyPrefab,
             randomPositionOnScreen,

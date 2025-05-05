@@ -16,10 +16,10 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1585765991962434920, guid: 541a9b5f015a50f48834d916b6522a52, type: 3}
   EnemyName: projectile
   maxHealth: 1
-  moveSpeed: 0.5
-  distanceBetween: 2
+  moveSpeed: 2
+  distanceBetween: 7
   attackDistance: 3
   minimumDistance: 3
   movementPatternID: 1
-  movementSpeedID: 1
+  movementSpeedID: 2
   isBoss: 0

@@ -71,7 +71,6 @@ public class Enemy : MonoBehaviour, IDoDamage
         // var hurtAnimation = 14;
 
         // // Hurt animation
-        // enemyAnimation.SetAnimation(hurtAnimation);
         enemyAnimation.ChangeAnimation(enemyAnimation.stateAnimation[4]);
     }
 
@@ -84,9 +83,7 @@ public class Enemy : MonoBehaviour, IDoDamage
 
     private void DeathAnimation()
     {
-        // var deadAnimation = 13;
-        // enemyAnimation.SetAnimation(deadAnimation);
-        // enemyAnimation.ChangeAnimation(enemyAnimation.stateAnimation[0]);
+        enemyAnimation.ChangeAnimation(enemyAnimation.stateAnimation[0]);
         EnableParticles();
     }
 
@@ -118,14 +115,8 @@ public class Enemy : MonoBehaviour, IDoDamage
             IsPlayingParticles = true;
         }
 
-        // enemySprite.SetActive(False);
+        enemyManager.SpawnMoreEnemies();
     }
-
-    // // Return to object pool for possible respawn in Enemy Manager
-    // public void DestroyEnemyObject()
-    // {
-    //     enemyManager.ReturnToPool(this.gameObject);
-    // }
 
     public void ReturnToPool()
     {

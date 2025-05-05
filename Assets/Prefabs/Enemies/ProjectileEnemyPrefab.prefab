@@ -237,7 +237,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.14828598, y: 0.6497369}
+  m_Offset: {x: -0.009000778, y: 0.84447306}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -248,7 +248,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9243777, y: 1.3110037}
+  m_Size: {x: 0.19037247, y: 0.7717346}
   m_EdgeRadius: 0
 --- !u!198 &6605187465170397426
 ParticleSystem:
@@ -5162,7 +5162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 261a7cf12112051408ebce777abeaa36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterAnimator: {fileID: 0}
+  masterAnimator: {fileID: 6319077787872178249}
   stateAnimation: []
   brawlAnimation: []
   swordAnimation: []
