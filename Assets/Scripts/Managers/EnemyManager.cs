@@ -3,23 +3,57 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField]
-    private EnemyData enemyData;
+    private EnemyData brawlEnemy;
 
-    // private int enemySpawnRate = 3;
+    [SerializeField]
+    private EnemyData projectileEnemy;
+
     private Vector2 randomPositionOnScreen;
 
     void Start()
     {
-        for (int i = 0; i < 10; i++)
+        PlaceEnemy(brawlEnemy);
+        PlaceEnemy(projectileEnemy);
+    }
+
+    public void SpawnMoreEnemies()
+    {
+        PlaceEnemy(brawlEnemy);
+        PlaceEnemy(projectileEnemy);
+    }
+
+    private void PlaceEnemy(EnemyData enemyData)
+    {
+        int enemySpawnCount = EnemySpawnCount();
+        for (int i = 0; i < enemySpawnCount; i++)
         {
-            randomPositionOnScreen = Camera.main.ViewportToWorldPoint(
-                new Vector2(UnityEngine.Random.value, UnityEngine.Random.value)
-            );
-            InstantiateEnemy();
+            RandomScreenCornerPosition();
+            InstantiateEnemy(enemyData);
         }
     }
 
-    public void InstantiateEnemy()
+    // random position ANYWHERE on screen
+    private void RandomScreenPosition()
+    {
+        randomPositionOnScreen = Camera.main.ViewportToWorldPoint(
+            new Vector2(Random.value, Random.value)
+        );
+    }
+
+    // Left bottom corner is 0,0 and right  top corner is 1,1
+    private void RandomScreenCornerPosition()
+    {
+        randomPositionOnScreen = Camera.main.ViewportToWorldPoint(
+            new Vector2(Random.Range(0, 1), Random.Range(0, 1))
+        );
+    }
+
+    private int EnemySpawnCount()
+    {
+        return Random.Range(1, 3);
+    }
+
+    private void InstantiateEnemy(EnemyData enemyData)
     {
         ObjectPoolManager.SpawnObject(
             enemyData.enemyPrefab,

@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 6963119159949872293}
   - component: {fileID: 7249272233603076033}
   - component: {fileID: -826195131758669447}
-  - component: {fileID: 4248080476818887014}
+  - component: {fileID: 6534243211103508886}
   m_Layer: 6
   m_Name: ProjectileEnemyPrefab
   m_TagString: Untagged
@@ -5150,7 +5150,7 @@ MonoBehaviour:
   damage: 1
   enemyData: {fileID: 11400000, guid: a44acf7992e474047a90114a5c4c6bb6, type: 2}
   attackPoint: {fileID: 5187746456500555684}
---- !u!114 &4248080476818887014
+--- !u!114 &6534243211103508886
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5159,10 +5159,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4513453226547687142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d3376300589fd64fb15cc30c90e9cd2, type: 3}
+  m_Script: {fileID: 11500000, guid: 261a7cf12112051408ebce777abeaa36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteAnimator: {fileID: 6319077787872178249}
+  masterAnimator: {fileID: 0}
+  stateAnimation: []
+  brawlAnimation: []
+  swordAnimation: []
+  projectileAnimation: []
+  moveAnimation: []
+  moveSwordAnimation: []
+  moveProjectileAnimation: []
+  animationFinished: 0
 --- !u!1 &8260889204755867979
 GameObject:
   m_ObjectHideFlags: 0
@@ -5258,7 +5266,7 @@ Animator:
   m_GameObject: {fileID: 8260889204755867979}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9fdff0520e705314dad31e93ab9a74c7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6c5f1a38d1194b440aa77c734bd15505, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

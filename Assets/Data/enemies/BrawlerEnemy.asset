@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 534342668968302770, guid: 39ad37de6c7644045ac5827e6fa8e6eb, type: 3}
   projectilePrefab: {fileID: 0}
-  EnemyName: 
+  EnemyName: brawl
   maxHealth: 1
   moveSpeed: 2
   distanceBetween: 3

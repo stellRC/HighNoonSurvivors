@@ -17,12 +17,15 @@ public class EnemyMovement : MonoBehaviour
     private float distance;
     bool isDead;
 
+    private string projectileName;
+
     private void Awake()
     {
         // enemyAnimation = GetComponent<GunAnimation>();
         enemyAnimation = GetComponent<MasterAnimator>();
         isDead = GetComponent<Enemy>().isDead;
         playerTransform = FindObjectOfType<PlayerMovement>().transform;
+        projectileName = "projectile";
     }
 
     private void OnEnable()
@@ -55,8 +58,14 @@ public class EnemyMovement : MonoBehaviour
             // Walk towards player
             if (distance < enemyData.distanceBetween && !isDead && enemyAnimation.animationFinished)
             {
-                // enemyAnimation.SetAnimation(enemyData.movementSpeedID);
-                enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[2]);
+                if (enemyData.EnemyName == projectileName)
+                {
+                    enemyAnimation.ChangeAnimation(enemyAnimation.moveProjectileAnimation[2]);
+                }
+                else
+                {
+                    enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[2]);
+                }
 
                 EnemyMovementPatterns(enemyData.movementPatternID, angle, enemyData.moveSpeed);
             }
@@ -64,8 +73,14 @@ public class EnemyMovement : MonoBehaviour
             // Idle animation
             if (distance > enemyData.distanceBetween && !isDead)
             {
-                // enemyAnimation.SetAnimation(1);
-                enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[0]);
+                if (enemyData.EnemyName == projectileName)
+                {
+                    enemyAnimation.ChangeAnimation(enemyAnimation.moveProjectileAnimation[0]);
+                }
+                else
+                {
+                    enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[0]);
+                }
             }
         }
     }
@@ -96,8 +111,15 @@ public class EnemyMovement : MonoBehaviour
             && enemyAnimation.animationFinished
         )
         {
-            // enemyAnimation.SetAnimation(2);
-            enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[1]);
+            if (enemyData.EnemyName == projectileName)
+            {
+                enemyAnimation.ChangeAnimation(enemyAnimation.moveProjectileAnimation[1]);
+            }
+            else
+            {
+                enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[1]);
+            }
+
             MoveTowardsPlayer(-speed);
         }
         // Move towards Player if too far away
@@ -107,8 +129,15 @@ public class EnemyMovement : MonoBehaviour
             && enemyAnimation.animationFinished
         )
         {
-            // enemyAnimation.SetAnimation(2);
-            enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[2]);
+            if (enemyData.EnemyName == projectileName)
+            {
+                enemyAnimation.ChangeAnimation(enemyAnimation.moveProjectileAnimation[2]);
+            }
+            else
+            {
+                enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[2]);
+            }
+
             MoveTowardsPlayer(speed);
         }
     }
@@ -152,27 +181,21 @@ public class EnemyMovement : MonoBehaviour
     {
         if (IsFacingRight)
         {
-            Vector3 rotator = new(transform.rotation.x, 180f, transform.rotation.z);
-            transform.rotation = Quaternion.Euler(rotator);
+            transform.rotation = Quaternion.Euler(
+                new Vector3(transform.rotation.x, 180f, transform.rotation.z)
+            );
             IsFacingRight = !IsFacingRight;
 
             //turn camera follow object
         }
         else
         {
-            Vector3 rotator = new Vector3(transform.rotation.x, 0f, transform.rotation.z);
-            transform.rotation = Quaternion.Euler(rotator);
+            transform.rotation = Quaternion.Euler(
+                new Vector3(transform.rotation.x, 0f, transform.rotation.z)
+            );
             IsFacingRight = !IsFacingRight;
 
             //turn camera follow object
         }
     }
 }
-
-
-
-
-
-// Two states: idle and pursuing (depending on proximity of player)
-// Line of sight: true is can see player and los false means we can't
-// Breadcrumbs

@@ -56,12 +56,12 @@ public class MasterAnimator : MonoBehaviour
         };
         moveProjectileAnimation = new List<string>()
         {
-            "GunReload",
             "GunAim",
             "GunWalk",
             "GunRun",
             "GunSprint",
-            "GunCrouch"
+            "GunCrouch",
+            "GunReload"
         };
         moveSwordAnimation = new List<string>()
         {

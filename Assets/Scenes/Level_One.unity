@@ -12840,7 +12840,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf17d07775ba574c889641d297f12b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: cf75d566609a824409d96e9181f03995, type: 2}
+  brawlEnemy: {fileID: 11400000, guid: cf75d566609a824409d96e9181f03995, type: 2}
+  projectileEnemy: {fileID: 11400000, guid: a44acf7992e474047a90114a5c4c6bb6, type: 2}
 --- !u!4 &2089900954
 Transform:
   m_ObjectHideFlags: 0

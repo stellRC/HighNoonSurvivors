@@ -9,7 +9,7 @@ public class ProjectileWeapon : WeaponBase
     private Transform attackPoint;
 
     private Vector2 spawnPosition;
-    private GunAnimation enemyAnimation;
+    private MasterAnimator enemyAnimation;
     private Transform playerTransform;
 
     private float timeBetweenShots = 0;
@@ -21,7 +21,7 @@ public class ProjectileWeapon : WeaponBase
 
     void Awake()
     {
-        enemyAnimation = GetComponent<GunAnimation>();
+        enemyAnimation = GetComponent<MasterAnimator>();
         playerTransform = FindObjectOfType<PlayerMovement>().transform;
     }
 
@@ -35,8 +35,9 @@ public class ProjectileWeapon : WeaponBase
             // Check if can shoot
             if (Time.time > nextShotTime)
             {
+                var attack = Random.Range(0, 5);
                 // Shoot animation
-                enemyAnimation.SetAnimation(9);
+                enemyAnimation.ChangeAnimation(enemyAnimation.projectileAnimation[attack]);
 
                 // Reset timer
                 timeBetweenShots = Random.Range(1.5f, 5.0f);
