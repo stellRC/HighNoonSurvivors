@@ -10,6 +10,8 @@ public class Projectile : MonoBehaviour
 
     public float projectileSpeed;
 
+    private Animator projectileFX;
+
     // private Coroutine returnToPoolCoroutine;
     private float destroyTime;
 
@@ -26,6 +28,7 @@ public class Projectile : MonoBehaviour
         playerTransform = FindObjectOfType<PlayerMovement>().transform;
         projectileSprite = GetComponentInChildren<SpriteRenderer>();
         projectileRigidBody = GetComponent<Rigidbody2D>();
+        projectileFX = GetComponentInChildren<Animator>();
     }
 
     private void OnEnable()
@@ -96,15 +99,13 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Play sound effect here
-        // Screen shake?
-        // Check if colliding into object as well
-
         // Damage Enemy
         IDoDamage iDoDamage = collision.gameObject.GetComponent<IDoDamage>();
 
         if (collision.gameObject.name == "PlayerCharacter")
         {
+            projectileFX.SetTrigger("hasCollided");
+
             iDoDamage?.DoDamage(damage);
 
             ObjectPoolManager.ReturnObjectToPool(gameObject);

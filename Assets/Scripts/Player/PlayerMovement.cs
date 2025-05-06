@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 5f;
 
+    [SerializeField]
+    private Animator fxAnimator;
+
     private MasterAnimator playerAnimator;
     private Rigidbody2D playerRigidBody;
 
@@ -128,11 +131,13 @@ public class PlayerMovement : MonoBehaviour
         {
             isDashing = !isDashing;
             playerAnimator.ChangeAnimation(playerAnimator.moveAnimation[4]);
+            fxAnimator.SetBool("IsDashing", true);
             activeMoveSpeed = dashSpeed;
         }
 
         if (context.canceled)
         {
+            fxAnimator.SetBool("IsDashing", false);
             isDashing = !isDashing;
         }
     }
