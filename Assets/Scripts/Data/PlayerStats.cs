@@ -17,7 +17,7 @@ public class PlayerStats : ScriptableObject
 
     [Header("Player Combat")]
     public float attackRate;
-    public float nextAttackTime;
+    public float specialAttackTime;
     public float attackRange;
     public int attackDamage;
 }

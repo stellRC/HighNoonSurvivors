@@ -3,20 +3,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    private SpriteRenderer playerSprite;
-
-    [SerializeField]
-    private Animator playerSpriteAnimator;
+    private CameraFollowObject cameraFollowObject;
 
     [SerializeField]
     private float moveSpeed = 5f;
 
-    [SerializeField]
-    private CameraFollowObject cameraFollowObject;
+    private MasterAnimator playerAnimator;
+    private Rigidbody2D playerRigidBody;
 
     public bool IsFacingRight { get; set; }
-    private Rigidbody2D playerRigidBody;
 
     private bool isDashing;
 
@@ -27,9 +22,15 @@ public class PlayerMovement : MonoBehaviour
     private float activeMoveSpeed;
     private float dashSpeed;
 
+    private void Awake()
+    {
+        playerAnimator = GetComponent<MasterAnimator>();
+        playerRigidBody = GetComponent<Rigidbody2D>();
+        cameraFollowObject = FindAnyObjectByType<CameraFollowObject>();
+    }
+
     void Start()
     {
-        playerRigidBody = GetComponent<Rigidbody2D>();
         isDashing = false;
         IsFacingRight = true;
 
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
         activeMoveSpeed = moveSpeed;
         dashSpeed = 7f;
+        playerAnimator.ChangeAnimation("SwordIdle");
 
         TurnCheck(moveInput);
     }
@@ -46,14 +48,15 @@ public class PlayerMovement : MonoBehaviour
         // Idle
         if (!isDashing & !isMoving)
         {
-            playerSpriteAnimator.SetInteger("AnimState", 1);
+            playerAnimator.ChangeAnimation(playerAnimator.moveSwordAnimation[0]);
             activeMoveSpeed = moveSpeed;
+            playerAnimator.IsRunning = false;
         }
 
         // Running
         if (!isDashing & isMoving)
         {
-            playerSpriteAnimator.SetInteger("AnimState", 2);
+            playerAnimator.ChangeAnimation(playerAnimator.moveSwordAnimation[2]);
             activeMoveSpeed = moveSpeed;
         }
     }
@@ -70,6 +73,8 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             isMoving = true;
+
+            playerAnimator.IsRunning = true;
         }
 
         if (moveInput.x > 0 || moveInput.x < 0)
@@ -87,12 +92,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (moveInput.x > 0 && !IsFacingRight)
         {
-            Debug.Log("Is facing right: " + IsFacingRight);
             Turn();
         }
         else if (moveInput.x <= 0 && IsFacingRight)
         {
-            Debug.Log("Is facing right: " + IsFacingRight);
             Turn();
         }
     }
@@ -124,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
         if (context.started)
         {
             isDashing = !isDashing;
-            playerSpriteAnimator.SetInteger("AnimState", 3);
+            playerAnimator.ChangeAnimation(playerAnimator.moveAnimation[4]);
             activeMoveSpeed = dashSpeed;
         }
 

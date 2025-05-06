@@ -2328,6 +2328,7 @@ MonoBehaviour:
   throwBtn: {fileID: 62640374}
   lockedColor: {r: 0.509434, g: 0, b: 0, a: 1}
   objectiveManager: {fileID: 314684879}
+  chosenSpecialMove: 0
 --- !u!114 &314684879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24935,7 +24936,7 @@ Transform:
   m_GameObject: {fileID: 2380761680681051833}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.39, y: 0.672, z: 0}
+  m_LocalPosition: {x: 0.455, y: 0.749, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24953,10 +24954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227948fc2960061428a6236b702f9896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSprite: {fileID: 2525983759696949472}
-  playerSpriteAnimator: {fileID: 5399809105951939355}
   moveSpeed: 5
-  cameraFollowObject: {fileID: 287896892}
 --- !u!1 &2380761680681051833
 GameObject:
   m_ObjectHideFlags: 0
@@ -25057,7 +25055,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 92ac78e9a7be6f841b5aaea46fea6b04, type: 2}
-  animator: {fileID: 5399809105951939355}
   attackPoint: {fileID: 572431635399770310}
   enemyLayers:
     serializedVersion: 2
@@ -25085,7 +25082,7 @@ Animator:
   m_GameObject: {fileID: 319490041738568656}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c794c61eb96248f4fbcd054821a369cd, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6c5f1a38d1194b440aa77c734bd15505, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -25157,6 +25154,7 @@ GameObject:
   - component: {fileID: 1904657261423186371}
   - component: {fileID: 4798751933184621651}
   - component: {fileID: 8399917932279528936}
+  - component: {fileID: 8954954674139820648}
   m_Layer: 7
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -25213,7 +25211,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4798751933184621651}
         m_TargetAssemblyTypeName: PlayerCombat, Assembly-CSharp
-        m_MethodName: Attack
+        m_MethodName: NormalAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -25281,6 +25279,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f13a726e-2b2e-42d9-a68d-5557990656d8
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4798751933184621651}
+        m_TargetAssemblyTypeName: PlayerCombat, Assembly-CSharp
+        m_MethodName: SpecialAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c000bfc7-8ac6-4a15-a316-84eed9dc4671
+    m_ActionName: Player/Special[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -25298,8 +25312,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409b822f32436994c884c0fe0e64c178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: 92ac78e9a7be6f841b5aaea46fea6b04, type: 2}
-  animator: {fileID: 5399809105951939355}
 --- !u!4 &8721673061502898043
 Transform:
   m_ObjectHideFlags: 0
@@ -25344,6 +25356,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &8954954674139820648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6560024572953361210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 261a7cf12112051408ebce777abeaa36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterAnimator: {fileID: 5399809105951939355}
+  stateAnimation: []
+  brawlAnimation: []
+  swordAnimation: []
+  projectileAnimation: []
+  specialAnimation: []
+  moveAnimation: []
+  moveSwordAnimation: []
+  moveProjectileAnimation: []
+  animationFinished: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

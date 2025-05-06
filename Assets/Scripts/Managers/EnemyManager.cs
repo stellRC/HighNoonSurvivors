@@ -10,23 +10,26 @@ public class EnemyManager : MonoBehaviour
 
     private Vector2 randomPositionOnScreen;
 
+    private int enemySpawnRate;
+
+    private Vector2 lastSpawnPosition;
+
     void Start()
     {
-        PlaceEnemy(brawlEnemy);
-        PlaceEnemy(projectileEnemy);
+        SpawnMoreEnemies();
+        lastSpawnPosition = new Vector2(2, 2);
     }
 
     public void SpawnMoreEnemies()
     {
-        Debug.Log("Spawn");
         PlaceEnemy(brawlEnemy);
         PlaceEnemy(projectileEnemy);
     }
 
     private void PlaceEnemy(EnemyData enemyData)
     {
-        int enemySpawnCount = EnemySpawnCount();
-        for (int i = 0; i < enemySpawnCount; i++)
+        enemySpawnRate = EnemySpawnCount();
+        for (int i = 0; i < enemySpawnRate; i++)
         {
             InstantiateEnemy(enemyData);
         }
@@ -41,11 +44,20 @@ public class EnemyManager : MonoBehaviour
     }
 
     // Left bottom corner is 0,0 and right  top corner is 1,1
-    private void RandomScreenCornerPosition()
+    private Vector2 RandomScreenCornerPosition()
     {
         randomPositionOnScreen = Camera.main.ViewportToWorldPoint(
-            new Vector2(Random.Range(0, 2), Random.Range(0, 2))
+            new Vector2(Random.Range(0f, 2f), Random.Range(0f, 2f))
         );
+        if (lastSpawnPosition == randomPositionOnScreen)
+        {
+            RandomScreenCornerPosition();
+        }
+        else
+        {
+            lastSpawnPosition = randomPositionOnScreen;
+        }
+        return randomPositionOnScreen;
     }
 
     private int EnemySpawnCount()
@@ -55,11 +67,11 @@ public class EnemyManager : MonoBehaviour
 
     private void InstantiateEnemy(EnemyData enemyData)
     {
-        RandomScreenCornerPosition();
+        var position = RandomScreenCornerPosition();
 
         ObjectPoolManager.SpawnObject(
             enemyData.enemyPrefab,
-            randomPositionOnScreen,
+            position,
             Quaternion.identity,
             ObjectPoolManager.PoolType.Enemies
         );

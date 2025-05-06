@@ -3,11 +3,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDoDamage
 {
-    [SerializeField]
-    private PlayerStats playerData;
-
-    [SerializeField]
-    private Animator animator;
+    private MasterAnimator playerAnimator;
 
     private PlayerSkills playerSkills;
 
@@ -16,6 +12,7 @@ public class PlayerController : MonoBehaviour, IDoDamage
         // instance of player skills
         playerSkills = new PlayerSkills();
         playerSkills.OnSkillUnlocked += PlayerSkills_OnSkillUnlocked;
+        playerAnimator = GetComponent<MasterAnimator>();
     }
 
     private void PlayerSkills_OnSkillUnlocked(
@@ -67,11 +64,19 @@ public class PlayerController : MonoBehaviour, IDoDamage
     public void DoDamage(int damage)
     {
         DeathAnimation();
+        DisablePlayer();
+    }
+
+    // Prevent further player animation and enemy death
+    private void DisablePlayer()
+    {
+        GetComponent<PlayerMovement>().enabled = false;
+        GetComponent<PlayerCombat>().enabled = false;
     }
 
     // Death animation (not looped)
     private void DeathAnimation()
     {
-        animator.SetTrigger("IsDead");
+        playerAnimator.ChangeAnimation(playerAnimator.stateAnimation[0]);
     }
 }

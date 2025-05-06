@@ -14,6 +14,7 @@ public class MasterAnimator : MonoBehaviour
     public List<string> brawlAnimation;
     public List<string> swordAnimation;
     public List<string> projectileAnimation;
+    public List<string> specialAnimation;
 
     [Header("Movement Animations")]
     public List<string> moveAnimation;
@@ -24,11 +25,13 @@ public class MasterAnimator : MonoBehaviour
 
     private float NTime;
 
+    public bool IsRunning;
+
     void Awake() { }
 
     void OnEnable()
     {
-        // masterAnimator = GetComponentInChildren<Animator>();
+        IsRunning = false;
         InitAnimationLists();
     }
 
@@ -44,7 +47,7 @@ public class MasterAnimator : MonoBehaviour
         };
 
         brawlAnimation = new List<string>() { "PunchA", "PunchB", "PunchC", "KickA", "KickB" };
-        moveAnimation = new List<string>() { "Idle", "Walk", "Run", "Sprint", "Dash" };
+        moveAnimation = new List<string>() { "Idle", "Walk", "Run", "Sprint", "DashLoop" };
         projectileAnimation = new List<string>()
         {
             "GunFire",
@@ -86,6 +89,16 @@ public class MasterAnimator : MonoBehaviour
             "ComboAttackC",
             "ComboAttackD"
         };
+
+        specialAnimation = new List<string>()
+        {
+            "ThrowOverarm",
+            "ThrowUnderarm",
+            "GunRunFire",
+            "ShockHeavy",
+            "ShockLight",
+            "GroundSlam"
+        };
     }
 
     void Update()
@@ -100,6 +113,15 @@ public class MasterAnimator : MonoBehaviour
         else
         {
             animationFinished = false;
+        }
+
+        if (IsRunning)
+        {
+            masterAnimator.SetBool("IsRunning", true);
+        }
+        else
+        {
+            masterAnimator.SetBool("IsRunning", false);
         }
     }
 

@@ -20,6 +20,6 @@ MonoBehaviour:
   distanceBetween: 7
   attackDistance: 3
   minimumDistance: 3
-  movementPatternID: 1
+  movementPatternID: 2
   movementSpeedID: 2
   isBoss: 0

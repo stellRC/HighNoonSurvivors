@@ -33,6 +33,8 @@ public class SkillTreeManager : MonoBehaviour
     [SerializeField]
     private ObjectiveManager objectiveManager;
 
+    public int chosenSpecialMove;
+
     private void Awake()
     {
         earthBtn.onClick.AddListener(UnlockSkillEarth);
@@ -41,6 +43,7 @@ public class SkillTreeManager : MonoBehaviour
         throwBtn.onClick.AddListener(UnlockSkillThrow);
 
         unlockedColor = Color.white;
+        chosenSpecialMove = 0;
     }
 
     private void UnlockSkillSpeed()
@@ -48,6 +51,7 @@ public class SkillTreeManager : MonoBehaviour
         if (objectiveManager.skillObjectives["Kill 10 Zombies"])
         {
             playerSkills.TryUnlockSkill(PlayerSkills.SkillType.SpeedBoost);
+            chosenSpecialMove = 1;
         }
     }
 
@@ -56,6 +60,7 @@ public class SkillTreeManager : MonoBehaviour
         if (objectiveManager.skillObjectives["Kill 20 Zombies"])
         {
             playerSkills.TryUnlockSkill(PlayerSkills.SkillType.Electrocute);
+            chosenSpecialMove = 2;
         }
     }
 
@@ -64,6 +69,7 @@ public class SkillTreeManager : MonoBehaviour
         if (objectiveManager.skillObjectives["Kill 30 Zombies"])
         {
             playerSkills.TryUnlockSkill(PlayerSkills.SkillType.Earthshatter);
+            chosenSpecialMove = 3;
         }
     }
 
@@ -72,6 +78,7 @@ public class SkillTreeManager : MonoBehaviour
         if (objectiveManager.skillObjectives["Kill 40 Zombies"])
         {
             playerSkills.TryUnlockSkill(PlayerSkills.SkillType.ThrowOverarm);
+            chosenSpecialMove = 4;
         }
     }
 

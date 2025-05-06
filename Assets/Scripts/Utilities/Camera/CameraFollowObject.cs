@@ -2,21 +2,19 @@ using UnityEngine;
 
 public class CameraFollowObject : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField]
+    private float flipYRotationTime;
     private Transform playerTransform;
-
-    [Header("Flip Rotation Stats")]
-    [SerializeField]
-    private float flipYRotationTime = 0.5f;
 
     private PlayerMovement playerMovement;
     private bool isFacingRight;
 
     private void Awake()
     {
-        playerMovement = playerTransform.gameObject.GetComponent<PlayerMovement>();
+        playerMovement = FindAnyObjectByType<PlayerMovement>();
+        playerTransform = playerMovement.transform;
         isFacingRight = playerMovement.IsFacingRight;
+
+        flipYRotationTime = 0.5f;
     }
 
     private void FixedUpdate()

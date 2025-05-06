@@ -16,6 +16,9 @@ public class EnemyMovement : MonoBehaviour
 
     private float distance;
     bool isDead;
+    private bool isMovingForward;
+
+    // private float retreatTime;
 
     private string projectileName;
 
@@ -26,13 +29,14 @@ public class EnemyMovement : MonoBehaviour
         isDead = GetComponent<Enemy>().isDead;
         playerTransform = FindObjectOfType<PlayerMovement>().transform;
         projectileName = "projectile";
+        // retreatTime = 3f;
     }
 
     private void OnEnable()
     {
-        TurnCheck();
-        // enemyAnimation.SetAnimation(2);
+        InitialTurnCheck();
         enemyAnimation.ChangeAnimation("Walk");
+        isMovingForward = true;
     }
 
     private void FixedUpdate()
@@ -56,36 +60,24 @@ public class EnemyMovement : MonoBehaviour
             }
 
             // Walk towards player
-            if (distance < enemyData.distanceBetween && !isDead && enemyAnimation.animationFinished)
+            if (!isDead && enemyAnimation.animationFinished)
             {
-                if (enemyData.EnemyName == projectileName)
-                {
-                    enemyAnimation.ChangeAnimation(enemyAnimation.moveProjectileAnimation[2]);
-                }
-                else
-                {
-                    enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[2]);
-                }
-
-                EnemyMovementPatterns(enemyData.movementPatternID, angle, enemyData.moveSpeed);
-            }
-
-            // Idle animation
-            if (distance > enemyData.distanceBetween && !isDead)
-            {
-                if (enemyData.EnemyName == projectileName)
-                {
-                    enemyAnimation.ChangeAnimation(enemyAnimation.moveProjectileAnimation[0]);
-                }
-                else
-                {
-                    enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[0]);
-                }
+                EnemyMovementPatterns(
+                    enemyData.movementPatternID,
+                    angle,
+                    enemyData.moveSpeed,
+                    distance
+                );
             }
         }
     }
 
-    private void EnemyMovementPatterns(int movementPatternID, float angle, float speed)
+    private void EnemyMovementPatterns(
+        int movementPatternID,
+        float angle,
+        float speed,
+        float distance
+    )
     {
         switch (movementPatternID)
         {
@@ -96,54 +88,40 @@ public class EnemyMovement : MonoBehaviour
                 MoveTowardsPlayer(speed);
                 break;
             case 2:
-                ForwardAndRetreat(speed);
+                ForwardAndRetreat(speed, distance);
                 break;
         }
     }
 
-    // Move towards player and then retreat if player moves towards enemy
-    private void ForwardAndRetreat(float speed)
+    private void IdleAnimation()
     {
-        // Retreat from player if too close
-        if (
-            Vector2.Distance(transform.position, playerTransform.position)
-                < enemyData.minimumDistance
-            && enemyAnimation.animationFinished
-        )
-        {
-            if (enemyData.EnemyName == projectileName)
-            {
-                enemyAnimation.ChangeAnimation(enemyAnimation.moveProjectileAnimation[1]);
-            }
-            else
-            {
-                enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[1]);
-            }
+        // Idle animation
 
-            MoveTowardsPlayer(-speed);
+        if (enemyData.EnemyName == projectileName)
+        {
+            enemyAnimation.ChangeAnimation(enemyAnimation.moveProjectileAnimation[0]);
         }
-        // Move towards Player if too far away
-        else if (
-            Vector2.Distance(transform.position, playerTransform.position)
-                > enemyData.minimumDistance
-            && enemyAnimation.animationFinished
-        )
+        else
         {
-            if (enemyData.EnemyName == projectileName)
-            {
-                enemyAnimation.ChangeAnimation(enemyAnimation.moveProjectileAnimation[2]);
-            }
-            else
-            {
-                enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[2]);
-            }
+            enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[0]);
+        }
+    }
 
-            MoveTowardsPlayer(speed);
+    private void RunAnimation()
+    {
+        if (enemyData.EnemyName == projectileName)
+        {
+            enemyAnimation.ChangeAnimation(enemyAnimation.moveProjectileAnimation[2]);
+        }
+        else
+        {
+            enemyAnimation.ChangeAnimation(enemyAnimation.moveAnimation[2]);
         }
     }
 
     private void RotateTowardsPlayer(float angle)
     {
+        RunAnimation();
         // Create a smooth updating turn rotation
         transform.SetPositionAndRotation(
             Vector2.MoveTowards(
@@ -155,6 +133,38 @@ public class EnemyMovement : MonoBehaviour
         );
     }
 
+    // Move towards player and then retreat if player moves towards enemy
+    private void ForwardAndRetreat(float speed, float distanceBetween)
+    {
+        // if (enemyAnimation.animationFinished)
+        // {
+        if (isMovingForward)
+        {
+            MoveTowardsPlayer(speed);
+            if (distanceBetween < enemyData.attackDistance)
+            {
+                isMovingForward = false;
+            }
+        }
+        else
+        {
+            // Retreat from player if too close
+            if (distanceBetween < enemyData.minimumDistance)
+            {
+                MoveTowardsPlayer(-speed);
+            }
+            else
+            {
+                IdleAnimation();
+            }
+        }
+        // if (distanceBetween > enemyData.attackDistance)
+        // {
+        //     isMovingForward = true;
+        // }
+        // }
+    }
+
     // Without rotation
     private void MoveTowardsPlayer(float speed)
     {
@@ -163,6 +173,7 @@ public class EnemyMovement : MonoBehaviour
             playerTransform.position,
             speed * Time.deltaTime
         );
+        RunAnimation();
     }
 
     private void TurnCheck()
@@ -177,6 +188,14 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    private void InitialTurnCheck()
+    {
+        if (playerTransform.position.x < transform.position.x)
+        {
+            Turn();
+        }
+    }
+
     private void Turn()
     {
         if (IsFacingRight)
@@ -185,8 +204,6 @@ public class EnemyMovement : MonoBehaviour
                 new Vector3(transform.rotation.x, 180f, transform.rotation.z)
             );
             IsFacingRight = !IsFacingRight;
-
-            //turn camera follow object
         }
         else
         {
@@ -194,8 +211,6 @@ public class EnemyMovement : MonoBehaviour
                 new Vector3(transform.rotation.x, 0f, transform.rotation.z)
             );
             IsFacingRight = !IsFacingRight;
-
-            //turn camera follow object
         }
     }
 }

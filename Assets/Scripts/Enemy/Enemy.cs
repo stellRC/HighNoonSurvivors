@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour, IDoDamage
         deathParticleSystem = GetComponent<ParticleSystem>();
         // enemyAnimation = GetComponent<GunAnimation>();
         enemyAnimation = GetComponent<MasterAnimator>();
+        enemyManager = FindAnyObjectByType<EnemyManager>();
     }
 
     void OnEnable()
@@ -46,6 +47,7 @@ public class Enemy : MonoBehaviour, IDoDamage
     {
         if (IsPlayingParticles && deathParticleSystem.isStopped)
         {
+            enemyManager.SpawnMoreEnemies();
             deathParticleSystem.Stop();
             IsPlayingParticles = false;
             ReturnToPool();
@@ -54,22 +56,23 @@ public class Enemy : MonoBehaviour, IDoDamage
 
     public void DoDamage(int damage)
     {
-        HurtAnimation();
-        // Decrease health based on damage
-        currentHealth -= damage;
-
-        // play hurt animation
-        if (currentHealth <= 0)
+        if (gameObject != null)
         {
-            isDead = true;
-            Die();
+            HurtAnimation();
+            // Decrease health based on damage
+            currentHealth -= damage;
+
+            // play hurt animation
+            if (currentHealth <= 0)
+            {
+                isDead = true;
+                Die();
+            }
         }
     }
 
     private void HurtAnimation()
     {
-        // var hurtAnimation = 14;
-
         // // Hurt animation
         enemyAnimation.ChangeAnimation(enemyAnimation.stateAnimation[4]);
     }
@@ -83,7 +86,7 @@ public class Enemy : MonoBehaviour, IDoDamage
 
     private void DeathAnimation()
     {
-        enemyAnimation.ChangeAnimation(enemyAnimation.stateAnimation[0]);
+        enemyAnimation.ChangeAnimation(enemyAnimation.stateAnimation[4]);
         EnableParticles();
     }
 
@@ -114,8 +117,6 @@ public class Enemy : MonoBehaviour, IDoDamage
             Destroy(enemySprite);
             IsPlayingParticles = true;
         }
-
-        enemyManager.SpawnMoreEnemies();
     }
 
     public void ReturnToPool()
